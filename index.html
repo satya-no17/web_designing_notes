@@ -1,0 +1,2560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Technology: Student Study Guide (Units I to V + optional CSS and full-stack unit)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=JetBrains+Mono:wght@400;500&family=Literata:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4f6fa; --panel:#ffffff; --ink:#15233b; --muted:#54627a; --line:#d8dfea;
+  --mark:#ffe14d; --link:#1a4bd0;
+  --code-bg:#0f1b2d; --code-ink:#e4ebf7; --code-bar:#18273e;
+  --teach:#0d6e65; --teach-bg:#e2f3f0;
+  --exam:#1a4bd0; --exam-bg:#e7edfc;
+  --old:#b3261e; --old-bg:#fcebe9;
+  --tip:#7a5200; --tip-bg:#fff3d1;
+  --u1:#1a4bd0; --u2:#0d7a6d; --u3:#b06a00; --u4:#b8245f; --u5:#6d3fc0; --u6:#0a6f8f;
+  --side:#0f1b2d; --side-ink:#dbe4f3; --side-mute:#8fa1bd;
+}
+:root[data-theme="dark"]{
+  --paper:#0d1420; --panel:#141d2d; --ink:#e5ebf5; --muted:#9aa9c0; --line:#26324a;
+  --mark:#ffe14d; --link:#7fa6ff;
+  --code-bg:#0a111c; --code-ink:#e4ebf7; --code-bar:#121c2d;
+  --teach:#5fd4c4; --teach-bg:#10302c;
+  --exam:#8fb0ff; --exam-bg:#15254a;
+  --old:#ff9088; --old-bg:#3a1917;
+  --tip:#ffd36b; --tip-bg:#33270b;
+  --u1:#7fa6ff; --u2:#4fd1bf; --u3:#f0a92e; --u4:#ff7fae; --u5:#b39aff; --u6:#5cc8e8;
+  --side:#0a111c; --side-ink:#dbe4f3; --side-mute:#8395b2;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0d1420; --panel:#141d2d; --ink:#e5ebf5; --muted:#9aa9c0; --line:#26324a;
+    --link:#7fa6ff;
+    --code-bg:#0a111c; --code-ink:#e4ebf7; --code-bar:#121c2d;
+    --teach:#5fd4c4; --teach-bg:#10302c;
+    --exam:#8fb0ff; --exam-bg:#15254a;
+    --old:#ff9088; --old-bg:#3a1917;
+    --tip:#ffd36b; --tip-bg:#33270b;
+    --u1:#7fa6ff; --u2:#4fd1bf; --u3:#f0a92e; --u4:#ff7fae; --u5:#b39aff; --u6:#5cc8e8;
+    --side:#0a111c;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:20px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Literata",Georgia,"Times New Roman",serif;font-size:17px;line-height:1.7}
+a{color:var(--link)}
+:focus-visible{outline:3px solid var(--mark);outline-offset:2px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--mark);color:#000;padding:8px 12px;z-index:100}
+.skip:focus{left:8px}
+
+/* layout */
+.layout{display:grid;grid-template-columns:300px minmax(0,1fr);min-height:100vh}
+#side{background:var(--side);color:var(--side-ink);position:sticky;top:0;height:100vh;overflow-y:auto;padding:22px 18px 30px;font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:15px;line-height:1.4}
+#side .brand{font-weight:800;font-size:20px;line-height:1.2;margin-bottom:4px;color:#fff}
+#side .sub{color:var(--side-mute);font-size:13px;margin-bottom:16px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tools button{font:inherit;font-size:13px;background:transparent;color:var(--side-ink);border:1px solid #33456a;border-radius:6px;padding:5px 10px;cursor:pointer}
+.tools button:hover{background:#1b2b47}
+.units{list-style:none;margin:0;padding:0}
+.units>li{margin-bottom:6px}
+.units>li>a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--side-ink);text-decoration:none;font-weight:700}
+.units>li>a:hover{background:#18273e}
+.units .dot{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+.units .prog{margin-left:auto;font-weight:500;font-size:12px;color:var(--side-mute)}
+.units ul{list-style:none;margin:2px 0 8px 22px;padding:0 0 0 12px;border-left:2px solid var(--c)}
+.js .units ul{display:none}
+.js .units li.active ul{display:block}
+.units ul a{display:block;padding:4px 8px;color:var(--side-mute);text-decoration:none;border-radius:6px;font-size:14px}
+.units ul a:hover,.units ul a.on{color:#fff;background:#18273e}
+.units li.active>a{background:#18273e}
+#menuBtn{display:none}
+main{padding:0 clamp(18px,4vw,56px) 80px}
+.wrap{max-width:820px;margin:0 auto}
+
+/* hero */
+.hero{padding:54px 0 26px}
+.hero h1{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:clamp(34px,5.4vw,58px);line-height:1.05;margin:0 0 14px;letter-spacing:-.02em}
+.hero p.lead{font-size:19px;color:var(--muted);max-width:60ch;margin:0 0 24px}
+.chips{display:grid;gap:8px;margin:0 0 26px;padding:0;list-style:none}
+.chips li{margin:0}
+.chips a{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:2px 16px;text-decoration:none;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-left:8px solid var(--c);border-radius:8px;padding:10px 14px;font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.3}
+.chips a b{font-size:17px}
+.chips a span{font-size:14px;color:var(--muted)}
+.chips a:hover{background:var(--exam-bg)}
+.legend{display:grid;grid-template-columns:repeat(2,1fr);gap:0 12px;margin:0 0 10px}
+.legend .note{margin:6px 0}
+@media (max-width:640px){.legend{grid-template-columns:1fr}}
+
+/* units */
+.unit{margin-top:56px;padding-top:0;border-top:8px solid var(--u)}
+.unit-head{padding:22px 0 10px}
+.unit-no{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:17px;color:var(--u)}
+.unit h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:800;font-size:clamp(30px,4.2vw,46px);line-height:1.08;margin:2px 0 10px;letter-spacing:-.015em}
+.covers{color:var(--muted);margin:0;font-size:16px}
+.topic{margin-top:40px}
+.topic>h3{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:26px;line-height:1.2;margin:0 0 12px;padding-left:12px;border-left:6px solid var(--u)}
+h4{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:19px;margin:26px 0 6px}
+p{margin:0 0 14px}
+ul,ol{padding-left:24px;margin:0 0 14px}
+li{margin-bottom:5px}
+mark{background:linear-gradient(transparent 55%,var(--mark) 55%);color:inherit;padding:0 2px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+:root[data-theme="dark"] mark{background:linear-gradient(transparent 55%,#8a7300 55%)}
+code{font-family:"JetBrains Mono",ui-monospace,Consolas,monospace;font-size:.86em;background:rgba(120,140,180,.18);padding:1px 6px;border-radius:5px}
+.big{font-size:18.5px}
+
+/* callouts */
+.note{border-left:5px solid var(--nc);background:var(--nb);border-radius:0 8px 8px 0;padding:12px 16px 4px;margin:18px 0}
+.note>.nt{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;color:var(--nc);display:block;margin-bottom:4px;font-size:16px}
+.note.teach{--nc:var(--teach);--nb:var(--teach-bg)}
+.note.exam{--nc:var(--exam);--nb:var(--exam-bg)}
+.note.old{--nc:var(--old);--nb:var(--old-bg)}
+.note.tip{--nc:var(--tip);--nb:var(--tip-bg)}
+
+/* tables */
+.tw{overflow-x:auto;margin:16px 0}
+table.t{border-collapse:collapse;width:100%;background:var(--panel);font-size:15.5px;line-height:1.5}
+.t th,.t td{border:1px solid var(--line);padding:8px 12px;text-align:left;vertical-align:top}
+.t th{background:var(--exam-bg);font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;white-space:nowrap}
+.t td:first-child{font-weight:600}
+.t td code{white-space:nowrap}
+
+/* code */
+.code{margin:16px 0;border-radius:10px;overflow:hidden;background:var(--code-bg)}
+.code-bar{display:flex;justify-content:space-between;align-items:center;background:var(--code-bar);color:#9fb2d3;padding:5px 12px;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:12.5px}
+.code-bar button{font:inherit;color:#c8d6ee;background:transparent;border:1px solid #3a4d70;border-radius:5px;padding:2px 9px;cursor:pointer}
+.code-bar button:hover{background:#243756}
+.code pre{margin:0;padding:14px 16px;overflow-x:auto;color:var(--code-ink);font-family:"JetBrains Mono",ui-monospace,Consolas,monospace;font-size:14px;line-height:1.6;tab-size:2}
+.code pre code{background:none;padding:0;font-size:inherit;color:inherit}
+
+/* flow diagrams */
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin:16px 0;padding:0;list-style:none}
+.flow li{position:relative;flex:1 1 130px;background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--u);border-radius:8px;padding:10px 12px;font-size:14.5px;line-height:1.4;margin:0}
+.flow li b{display:block;font-family:"Bricolage Grotesque",system-ui,sans-serif;font-size:15.5px;margin-bottom:2px}
+.flow.vert{flex-direction:column}
+.flow.vert li{flex:none}
+
+/* url anatomy */
+.url{display:flex;flex-wrap:wrap;font-family:"JetBrains Mono",ui-monospace,monospace;font-size:15px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;gap:0;margin:16px 0 6px;overflow-x:auto}
+.url span{padding:6px 2px;border-bottom:4px solid var(--pc);white-space:nowrap}
+.urllegend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:14px;margin:0 0 16px;font-family:"Bricolage Grotesque",system-ui,sans-serif}
+.urllegend i{display:inline-block;width:12px;height:12px;background:var(--pc);border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* Q&A + checklist */
+.qa{background:var(--panel);border:1px solid var(--line);border-radius:8px;margin:8px 0}
+.qa summary{cursor:pointer;padding:11px 16px;font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;font-size:17px;line-height:1.35}
+.qa[open] summary{border-bottom:1px solid var(--line)}
+.qa .ans{padding:12px 16px 2px}
+.check{list-style:none;padding:0;margin:0 0 14px}
+.check li{margin:0}
+.check label{display:flex;gap:10px;align-items:flex-start;padding:6px 4px;cursor:pointer}
+.check input{margin-top:7px;width:18px;height:18px;accent-color:var(--u);flex:none}
+.check input:checked+span{color:var(--muted);text-decoration:line-through}
+
+/* demos */
+.demo{border:2px dashed var(--u);border-radius:10px;padding:14px 16px 12px;margin:18px 0;background:var(--panel)}
+.demo>.nt{font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;display:block;margin-bottom:8px;color:var(--u)}
+.demo button,.demo input,.demo select{font:inherit;font-size:15px}
+.demo button{padding:6px 12px;border-radius:6px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.demo input[type=text]{padding:6px 8px;border:1px solid var(--line);border-radius:6px;background:var(--paper);color:var(--ink);width:100%;max-width:340px}
+.demo .out{font-family:"JetBrains Mono",ui-monospace,monospace;font-size:14px;background:var(--paper);border-radius:6px;padding:8px 10px;margin-top:10px;min-height:2.2em;white-space:pre-wrap}
+.demo img{max-width:100%;height:auto;border-radius:6px;border:1px solid var(--line)}
+.evbox{display:inline-block;padding:20px 26px;background:var(--exam-bg);border:1px solid var(--line);border-radius:8px;margin-right:8px;user-select:none}
+
+footer{margin-top:70px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:15px}
+
+@media (max-width:900px){
+  .layout{display:block}
+  #side{position:fixed;inset:0 25% 0 0;z-index:50;transform:translateX(-102%);transition:transform .2s;height:100vh;max-width:330px}
+  #side.open{transform:none;box-shadow:0 0 0 100vmax rgba(0,0,0,.45)}
+  #menuBtn{display:block;position:fixed;right:14px;bottom:14px;z-index:40;font:inherit;font-family:"Bricolage Grotesque",system-ui,sans-serif;font-weight:700;background:var(--ink);color:var(--paper);border:0;border-radius:24px;padding:11px 18px;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+  body{font-size:16.5px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}#side{transition:none}}
+@media print{
+  #side,#menuBtn,.tools,.code-bar button{display:none !important}
+  .layout{display:block}
+  body{background:#fff;color:#000;font-size:12pt}
+  .unit{break-before:page}
+  details.qa .ans{display:block}
+  .demo{display:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<button id="menuBtn" aria-controls="side" aria-expanded="false">Contents</button>
+<div class="layout">
+
+<nav id="side" aria-label="Guide contents">
+  <div class="brand">Web Technology</div>
+  <div class="sub">Student study guide, Units I to V + optional unit</div>
+  <div class="tools">
+    <button id="themeBtn" type="button">Dark / light</button>
+    <button id="qaBtn" type="button">Open all answers</button>
+  </div>
+  <ol class="units">
+    <li style="--c:var(--u1)"><a href="#unit1"><span class="dot"></span>Unit I: Internet and WWW<span class="prog" data-unit="1"></span></a>
+      <ul>
+        <li><a href="#u1-internet">What is the Internet?</a></li>
+        <li><a href="#u1-apps">Email, Telnet, FTP, video calls</a></li>
+        <li><a href="#u1-commerce">E-commerce and e-business</a></li>
+        <li><a href="#u1-isp">ISP, DNS, Internet address</a></li>
+        <li><a href="#u1-www">The World Wide Web</a></li>
+        <li><a href="#u1-url">URL</a></li>
+        <li><a href="#u1-browsers">Browsers</a></li>
+        <li><a href="#u1-search">Search engines</a></li>
+        <li><a href="#u1-servers">Web servers and proxy</a></li>
+        <li><a href="#u1-http">HTTP protocol</a></li>
+        <li><a href="#u1-story">What happens when you press Enter</a></li>
+        <li><a href="#u1-qa">Questions and checklist</a></li>
+      </ul></li>
+    <li style="--c:var(--u2)"><a href="#unit2"><span class="dot"></span>Unit II: HTML and graphics<span class="prog" data-unit="2"></span></a>
+      <ul>
+        <li><a href="#u2-basics">HTML tag reference</a></li>
+        <li><a href="#u2-block">Block-level formatting</a></li>
+        <li><a href="#u2-lists">List tags</a></li>
+        <li><a href="#u2-links">Hyperlink tags</a></li>
+        <li><a href="#u2-images">Images and image maps</a></li>
+        <li><a href="#u2-tables">Tables</a></li>
+        <li><a href="#u2-forms">Forms</a></li>
+        <li><a href="#u2-frames">Frames</a></li>
+        <li><a href="#u2-exec">Executable content tags</a></li>
+        <li><a href="#u2-qa">Questions and checklist</a></li>
+      </ul></li>
+    <li style="--c:var(--u3)"><a href="#unit3"><span class="dot"></span>Unit III: JavaScript<span class="prog" data-unit="3"></span></a>
+      <ul>
+        <li><a href="#u3-intro">Introduction</a></li>
+        <li><a href="#u3-cs">Client-side and server-side</a></li>
+        <li><a href="#u3-objects">JavaScript objects</a></li>
+        <li><a href="#u3-security">JavaScript security</a></li>
+        <li><a href="#u3-operators">Operators</a></li>
+        <li><a href="#u3-special">Special operators</a></li>
+        <li><a href="#u3-statements">Statements</a></li>
+        <li><a href="#u3-qa">Questions and checklist</a></li>
+      </ul></li>
+    <li style="--c:var(--u4)"><a href="#unit4"><span class="dot"></span>Unit IV: Core JS and DOM<span class="prog" data-unit="4"></span></a>
+      <ul>
+        <li><a href="#u4-array">Array</a></li>
+        <li><a href="#u4-boolean">Boolean</a></li>
+        <li><a href="#u4-date">Date</a></li>
+        <li><a href="#u4-function">Function</a></li>
+        <li><a href="#u4-math">Math</a></li>
+        <li><a href="#u4-number">Number</a></li>
+        <li><a href="#u4-object">Object</a></li>
+        <li><a href="#u4-string">String</a></li>
+        <li><a href="#u4-regexp">RegExp</a></li>
+        <li><a href="#u4-dom">Document and related objects</a></li>
+        <li><a href="#u4-events">Events and handlers</a></li>
+        <li><a href="#u4-qa">Questions and checklist</a></li>
+      </ul></li>
+    <li style="--c:var(--u5)"><a href="#unit5"><span class="dot"></span>Unit V: XML<span class="prog" data-unit="5"></span></a>
+      <ul>
+        <li><a href="#u5-intro">Introduction to XML</a></li>
+        <li><a href="#u5-anatomy">Anatomy of a document</a></li>
+        <li><a href="#u5-create">Creating XML documents</a></li>
+        <li><a href="#u5-dtd">DTD</a></li>
+        <li><a href="#u5-schema">XML Schema</a></li>
+        <li><a href="#u5-xsl">XSL</a></li>
+        <li><a href="#u5-qa">Questions and checklist</a></li>
+      </ul></li>
+    <li style="--c:var(--u6)"><a href="#unit6"><span class="dot"></span>Optional: CSS and roadmap<span class="prog" data-unit="6"></span></a>
+      <ul>
+        <li><a href="#u6-css">CSS selectors</a></li>
+        <li><a href="#u6-box">Box model and units</a></li>
+        <li><a href="#u6-layout">Flexbox and Grid</a></li>
+        <li><a href="#u6-responsive">Responsive design</a></li>
+        <li><a href="#u6-ux">Usability</a></li>
+        <li><a href="#u6-roadmap">MERN roadmap</a></li>
+        <li><a href="#u6-ai">AI tools for development</a></li>
+        <li><a href="#u6-qa">Questions and checklist</a></li>
+      </ul></li>
+  </ol>
+</nav>
+
+<main id="content"><div class="wrap">
+
+<header class="hero">
+  <h1>Web Technology, explained simply</h1>
+  <p class="lead">Every unit of the syllabus in plain words: what it is, how to picture it, what to write in the exam, and what is out of date. Read it once to learn, then come back to revise.</p>
+  <ul class="chips">
+    <li><a href="#unit1" style="--c:var(--u1)"><b>Unit I: Internet and WWW</b><span>Theory: how the net and the web work</span></a></li>
+    <li><a href="#unit2" style="--c:var(--u2)"><b>Unit II: HTML and graphics</b><span>Tags, tables, forms, image maps</span></a></li>
+    <li><a href="#unit3" style="--c:var(--u3)"><b>Unit III: JavaScript</b><span>Operators, statements, objects</span></a></li>
+    <li><a href="#unit4" style="--c:var(--u4)"><b>Unit IV: Core JS and DOM</b><span>Built-in objects, events</span></a></li>
+    <li><a href="#unit5" style="--c:var(--u5)"><b>Unit V: XML</b><span>XML, DTD, Schema, XSL</span></a></li>
+    <li><a href="#unit6" style="--c:var(--u6)"><b>Optional: CSS and full-stack roadmap</b><span>CSS, responsive design, MERN, AI-assisted development</span></a></li>
+  </ul>
+  <div class="legend">
+    <div class="note teach"><span class="nt">Think of it like this</span><p>Plain wording and analogies that make an idea click.</p></div>
+    <div class="note exam"><span class="nt">Exam answer</span><p>A short definition you can write as it is.</p></div>
+    <div class="note old"><span class="nt">Outdated</span><p>In the syllabus, so learn it for the exam, but know what replaced it.</p></div>
+    <div class="note tip"><span class="nt">Remember</span><p>Common mistakes and things that trip people up.</p></div>
+  </div>
+  <p>Each unit ends with likely questions (tap to reveal the answer) and a checklist you can tick off while revising. Ticks are saved in this browser.</p>
+</header>
+
+<!-- ============ UNIT I ============ -->
+<section class="unit" id="unit1" style="--u:var(--u1)">
+<header class="unit-head">
+  <div class="unit-no">Unit I</div>
+  <h2>Internet and WWW</h2>
+  <p class="covers">Internet and its applications, e-mail, telnet, FTP, e-commerce, video conferencing, e-business, ISP, DNS, internet address, WWW and its evolution, URL, browsers, search engines, web servers, proxy server, HTTP.</p>
+</header>
+
+<div class="note teach"><span class="nt">Think of it like this</span>
+<p>The <mark>Internet</mark> is the road network. The <mark>Web</mark> is only one kind of vehicle running on those roads (the one that carries web pages). E-mail, FTP and video calls are other vehicles on the same roads. Students mix these two up all the time, so say it early and repeat it.</p></div>
+
+<div class="topic" id="u1-internet">
+<h3>What is the Internet?</h3>
+<p>The Internet is a <mark>worldwide network of networks</mark>. Millions of smaller networks (homes, colleges, companies, governments) are joined together, and every device on them can talk to every other device because they all follow the same rules, called the <mark>TCP/IP protocols</mark>.</p>
+<ul>
+  <li><b>Nobody owns it.</b> Many organisations own pieces of it (cables, routers, servers). No single company or country controls the whole thing.</li>
+  <li><b>It began as ARPANET</b> in 1969, a US defence-funded project that connected a few universities.</li>
+  <li><b>Data travels in packets.</b> A file is cut into small pieces, each piece is sent separately through routers (possibly by different paths), and they are joined back together at the destination. This is called <mark>packet switching</mark>.</li>
+  <li><b>Protocol</b> = an agreed set of rules for communication. TCP splits data and makes sure it all arrives; IP gives each device an address and routes the packets.</li>
+</ul>
+<div class="note exam"><span class="nt">Exam answer</span>
+<p>The Internet is a global system of interconnected computer networks that use the TCP/IP protocol suite to exchange data and provide services such as the World Wide Web, e-mail, file transfer and video conferencing.</p></div>
+
+<h4>Internet vs Intranet vs Extranet vs WWW</h4>
+<div class="tw"><table class="t">
+<tr><th>Term</th><th>Meaning</th><th>Example</th></tr>
+<tr><td>Internet</td><td>Public, global network of networks (the infrastructure)</td><td>The whole thing</td></tr>
+<tr><td>Intranet</td><td>Private network inside one organisation, using internet technology</td><td>College portal that works only on campus Wi-Fi</td></tr>
+<tr><td>Extranet</td><td>Intranet that is opened to selected outsiders</td><td>A company giving suppliers a login to its stock system</td></tr>
+<tr><td>WWW</td><td>A service on the internet: linked web pages viewed in a browser</td><td>Any website</td></tr>
+</table></div>
+
+<h4>Uses of the Internet</h4>
+<p>Browsing information, e-mail and messaging, file sharing, online shopping and banking, education (online classes), entertainment (streaming, games), social networking, video calls, cloud storage, government services.</p>
+</div>
+
+<div class="topic" id="u1-apps">
+<h3>Internet applications: e-mail, Telnet, FTP, video conferencing</h3>
+
+<h4>E-mail (electronic mail)</h4>
+<p>Sending messages (text plus attachments) from one person to another over the internet, almost instantly. Address format: <code>username@domain</code>, for example <code>asha@gmail.com</code>. The <code>@</code> separates the person from the mail server that holds their mailbox.</p>
+<p>Parts of a mail: <b>To</b>, <b>Cc</b> (carbon copy, visible to all), <b>Bcc</b> (blind carbon copy, hidden from others), <b>Subject</b>, <b>Body</b>, <b>Attachment</b>.</p>
+<ul class="flow">
+  <li><b>Your mail app</b>You write and press Send</li>
+  <li><b>SMTP</b>Your mail server accepts the message</li>
+  <li><b>Internet</b>DNS finds the receiver's mail server</li>
+  <li><b>Receiver's server</b>Message waits in the mailbox</li>
+  <li><b>POP3 or IMAP</b>Receiver's app fetches it</li>
+</ul>
+<div class="tw"><table class="t">
+<tr><th>Protocol</th><th>Job</th><th>Notes</th></tr>
+<tr><td>SMTP</td><td>Sending mail (client to server, and server to server)</td><td>Port 25 (587 for submission)</td></tr>
+<tr><td>POP3</td><td>Receiving: downloads mail to your device, usually removing it from the server</td><td>Port 110</td></tr>
+<tr><td>IMAP</td><td>Receiving: mail stays on the server, all your devices stay in sync</td><td>Port 143</td></tr>
+</table></div>
+<div class="note tip"><span class="nt">Remember</span><p>SMTP <em>sends</em>, POP3 and IMAP <em>receive</em>. That one line answers half of the e-mail questions.</p></div>
+<p><b>Advantages:</b> fast, cheap, works across the world, attachments, can be stored and searched. <b>Disadvantages:</b> spam, phishing, viruses in attachments, information overload.</p>
+
+<h4>Telnet</h4>
+<p>Telnet (teletype network) lets you <mark>log in to a remote computer and use it through a text window</mark>, as if you were sitting at it. Type <code>telnet hostname</code>, enter username and password, then run commands on the far machine. It uses TCP port 23.</p>
+<div class="note old"><span class="nt">Outdated</span><p>Telnet sends everything, including your password, as plain readable text, so anyone listening can steal it. It has been replaced by <mark>SSH</mark> (Secure Shell, port 22), which encrypts everything. Telnet is still handy for testing whether a port is open.</p></div>
+
+<h4>FTP (File Transfer Protocol)</h4>
+<p>FTP is the standard way to <mark>upload and download files</mark> between your computer (client) and a server. Port 21 carries commands; port 20 carries data in active mode.</p>
+<ul>
+  <li><b>Login:</b> with a username and password, or as <mark>anonymous FTP</mark> (username <code>anonymous</code>, your e-mail as password) for public downloads.</li>
+  <li><b>Common commands:</b> <code>ls</code> (list), <code>cd</code> (change folder), <code>get</code> (download), <code>put</code> (upload), <code>mget</code>/<code>mput</code> (many files), <code>bye</code> (quit).</li>
+  <li><b>Transfer modes:</b> ASCII (text files) and binary (images, zips, programs).</li>
+  <li><b>Today:</b> used to upload website files to a hosting server (with tools like FileZilla). Secure versions are <b>SFTP</b> and <b>FTPS</b>.</li>
+</ul>
+
+<h4>Video conferencing</h4>
+<p>Live two-way audio and video between people in different places, over the internet. Needs a camera, microphone, speakers, a screen, a decent internet connection (bandwidth), and software such as Zoom, Google Meet or Microsoft Teams.</p>
+<ul>
+  <li><b>Point-to-point:</b> two people. <b>Multipoint:</b> many people in one meeting.</li>
+  <li><b>Uses:</b> online classes, business meetings, interviews, telemedicine, webinars.</li>
+  <li><b>Advantages:</b> saves travel time and cost, screen sharing, recording.</li>
+  <li><b>Disadvantages:</b> depends on bandwidth (lag, frozen video), privacy and security risks, less personal.</li>
+</ul>
+</div>
+
+<div class="topic" id="u1-commerce">
+<h3>E-commerce and e-business</h3>
+<p><mark>E-commerce</mark> means buying and selling goods or services over the internet, including the online payment. <mark>E-business</mark> is bigger: it means running <em>every</em> part of a business electronically (buying, selling, customer support, stock control, HR, accounting, working with suppliers).</p>
+<div class="tw"><table class="t">
+<tr><th>Type</th><th>Between</th><th>Example</th></tr>
+<tr><td>B2C</td><td>Business to Consumer</td><td>Amazon, Flipkart selling to you</td></tr>
+<tr><td>B2B</td><td>Business to Business</td><td>IndiaMART, Alibaba</td></tr>
+<tr><td>C2C</td><td>Consumer to Consumer</td><td>OLX, second-hand selling</td></tr>
+<tr><td>C2B</td><td>Consumer to Business</td><td>A freelancer selling services on Upwork</td></tr>
+<tr><td>B2G</td><td>Business to Government</td><td>Firms bidding for government tenders online</td></tr>
+</table></div>
+<p><b>Advantages:</b> open 24x7, wide choice, easy price comparison, no shop rent. <b>Disadvantages:</b> can't touch the product, payment fraud, delivery delays, needs internet. Secure payment relies on HTTPS (SSL/TLS), UPI, cards, net banking and wallets.</p>
+<div class="note exam"><span class="nt">Difference between e-commerce and e-business</span>
+<p>E-commerce covers only the buying and selling transaction done online. E-business covers all business activities done online, so e-commerce is one part of e-business.</p></div>
+</div>
+
+<div class="topic" id="u1-isp">
+<h3>ISP, domain name server and internet address</h3>
+
+<h4>Internet Service Provider (ISP)</h4>
+<p>A company that sells you a connection to the internet. Examples in India: Jio, Airtel, BSNL, ACT. Your device connects to the ISP, and the ISP connects you to the rest of the internet.</p>
+<p><b>Ways to connect:</b> dial-up (old, phone line, about 56 kbps), DSL/ADSL, cable, <mark>fibre (FTTH)</mark>, mobile data (4G/5G), satellite. ISPs also give e-mail accounts, web hosting and sometimes a fixed IP address.</p>
+
+<h4>Domain Name System (DNS) and the domain name server</h4>
+<p>Computers find each other by numbers (IP addresses) but humans remember names. DNS is the <mark>phone book of the internet</mark>: it converts a domain name like <code>google.com</code> into an IP address like <code>142.250.190.14</code>. The computers that do this job are <b>DNS servers</b> (name servers).</p>
+<p>Reading a domain from right to left goes from biggest to smallest: <code>www.example.co.in</code></p>
+<div class="tw"><table class="t">
+<tr><th>Part</th><th>Name</th><th>Meaning</th></tr>
+<tr><td><code>.in</code></td><td>Top-level domain (TLD)</td><td>Country code. Others: <code>.com</code>, <code>.org</code>, <code>.net</code>, <code>.edu</code>, <code>.gov</code></td></tr>
+<tr><td><code>.co</code></td><td>Second-level category</td><td>Commercial (used under country domains)</td></tr>
+<tr><td><code>example</code></td><td>Domain name</td><td>The name someone registered</td></tr>
+<tr><td><code>www</code></td><td>Subdomain / host</td><td>A machine or section under the domain</td></tr>
+</table></div>
+
+<h4>How a name gets resolved</h4>
+<ul class="flow vert">
+  <li><b>1. Check the caches</b>Browser and operating system remember recent lookups. If found, stop here.</li>
+  <li><b>2. Ask the resolver</b>Usually your ISP's DNS server (or 8.8.8.8, 1.1.1.1). It does the hunting for you.</li>
+  <li><b>3. Root server</b>"I don't know example.com, but the servers for .com are over there."</li>
+  <li><b>4. TLD server (.com)</b>"The name server for example.com is over there."</li>
+  <li><b>5. Authoritative server</b>Owns the record and answers: "example.com is 93.184.216.34". The resolver caches it and returns it to your browser.</li>
+</ul>
+<p>Useful record types: <b>A</b> (name to IPv4), <b>AAAA</b> (name to IPv6), <b>MX</b> (mail server), <b>CNAME</b> (alias), <b>NS</b> (name server).</p>
+
+<h4>Internet address (IP address)</h4>
+<p>Every device on the internet needs a unique address so data can find it. Three kinds of "address" get mixed up, so list them: the <b>IP address</b> (number), the <b>domain name</b> (friendly name for that number), and the <b>e-mail address</b> (person at a mail server).</p>
+<ul>
+  <li><b>IPv4:</b> 32 bits, written as four numbers 0 to 255 separated by dots, like <code>192.168.1.10</code>. About 4.3 billion addresses, which have run out.</li>
+  <li><b>IPv6:</b> 128 bits, written in hexadecimal like <code>2001:0db8:85a3::8a2e:0370:7334</code>. Practically unlimited addresses.</li>
+  <li><b>Static IP</b> never changes; <b>dynamic IP</b> is handed out temporarily by <mark>DHCP</mark>.</li>
+  <li><code>127.0.0.1</code> is <b>localhost</b>: "this same computer". Private ranges that don't work on the public internet: <code>10.x.x.x</code>, <code>172.16-31.x.x</code>, <code>192.168.x.x</code>.</li>
+</ul>
+<div class="tw"><table class="t">
+<tr><th>Class</th><th>First number</th><th>Default mask</th><th>Used for</th></tr>
+<tr><td>A</td><td>1 to 126</td><td>255.0.0.0</td><td>Very large networks</td></tr>
+<tr><td>B</td><td>128 to 191</td><td>255.255.0.0</td><td>Medium networks</td></tr>
+<tr><td>C</td><td>192 to 223</td><td>255.255.255.0</td><td>Small networks</td></tr>
+<tr><td>D</td><td>224 to 239</td><td>none</td><td>Multicast</td></tr>
+<tr><td>E</td><td>240 to 255</td><td>none</td><td>Experimental, reserved</td></tr>
+</table></div>
+<p>(127 is skipped because it is reserved for loopback.)</p>
+</div>
+
+<div class="topic" id="u1-www">
+<h3>The World Wide Web (WWW) and its evolution</h3>
+<p>The Web is a huge collection of <mark>linked documents (web pages)</mark> stored on web servers and viewed with a browser. It stands on three inventions: <b>URL</b> (address of a page), <b>HTTP</b> (how the page is fetched) and <b>HTML</b> (how the page is written).</p>
+<p><b>Inventor:</b> Tim Berners-Lee, at CERN (Switzerland). Proposal 1989, first browser and server 1990, opened to the public 1991. He also founded the W3C in 1994 to keep web standards.</p>
+<div class="tw"><table class="t">
+<tr><th>Stage</th><th>Period</th><th>Idea</th><th>Examples</th></tr>
+<tr><td>Web 1.0</td><td>1991 to about 2004</td><td>"Read-only" web. Static pages made by a few people, visitors only read.</td><td>Early company sites, personal home pages, directories</td></tr>
+<tr><td>Web 2.0</td><td>2004 onwards</td><td>"Read and write" web. Users create content, share, comment, and pages update without reloading (AJAX).</td><td>Facebook, YouTube, Wikipedia, blogs</td></tr>
+<tr><td>Web 3.0</td><td>Emerging</td><td>Semantic and intelligent web: machines understand meaning, AI personalisation, decentralised ideas (blockchain).</td><td>Voice assistants, smart recommendations</td></tr>
+</table></div>
+<p>Milestones worth remembering: 1993 Mosaic, the first popular graphical browser; 1994 Netscape Navigator; 1995 Internet Explorer and JavaScript; 1998 Google; 2008 Chrome.</p>
+<p><b>Terms:</b> <em>web page</em> (one document), <em>website</em> (collection of pages), <em>home page</em> (the first page of a site), <em>hyperlink</em> (clickable link), <em>hypertext</em> (text containing links).</p>
+</div>
+
+<div class="topic" id="u1-url">
+<h3>Uniform Resource Locator (URL)</h3>
+<p>A URL is the <mark>complete address of a resource</mark> on the internet, telling the browser which protocol to use, which server to contact, and which file to ask for.</p>
+<div class="url" aria-label="URL broken into parts"><span style="--pc:#1a4bd0">https://</span><span style="--pc:#0d7a6d">www.example.com</span><span style="--pc:#b06a00">:443</span><span style="--pc:#b8245f">/courses/web.html</span><span style="--pc:#6d3fc0">?unit=1&amp;topic=url</span><span style="--pc:#6b7280">#intro</span></div>
+<div class="urllegend">
+  <span style="--pc:#1a4bd0"><i></i>Scheme (protocol)</span>
+  <span style="--pc:#0d7a6d"><i></i>Host (domain name)</span>
+  <span style="--pc:#b06a00"><i></i>Port (optional)</span>
+  <span style="--pc:#b8245f"><i></i>Path to the file</span>
+  <span style="--pc:#6d3fc0"><i></i>Query string (data)</span>
+  <span style="--pc:#6b7280"><i></i>Fragment (place in page)</span>
+</div>
+<ul>
+  <li><b>Schemes:</b> <code>http</code>, <code>https</code>, <code>ftp</code>, <code>mailto</code>, <code>file</code>.</li>
+  <li><b>Absolute URL</b> has everything (<code>https://site.com/a/b.html</code>). <b>Relative URL</b> is only the path from the current page (<code>b.html</code> or <code>../img/logo.png</code>).</li>
+  <li>Spaces and special characters are encoded: a space becomes <code>%20</code>.</li>
+  <li>Default ports: http 80, https 443, ftp 21, so you normally don't see them.</li>
+</ul>
+</div>
+
+<div class="topic" id="u1-browsers">
+<h3>Web browsers</h3>
+<p>A browser is software that <mark>requests web pages from servers, and displays them</mark> by reading HTML, CSS and JavaScript. Inside every browser: a user interface (address bar, tabs), a <b>rendering engine</b> (draws the page), a <b>JavaScript engine</b> (runs scripts) and a networking part (HTTP).</p>
+<div class="tw"><table class="t">
+<tr><th>Browser</th><th>Made by</th><th>Year</th><th>Engine</th><th>Status today</th></tr>
+<tr><td>Netscape Navigator</td><td>Netscape Communications</td><td>1994</td><td>Own, later Gecko</td><td>Discontinued 2008. It started the browser wars and gave the world JavaScript.</td></tr>
+<tr><td>Internet Explorer</td><td>Microsoft</td><td>1995</td><td>Trident</td><td>Retired June 2022, replaced by Edge.</td></tr>
+<tr><td>Mozilla</td><td>Mozilla (from Netscape's open-sourced code)</td><td>Suite 1.0 in 2002</td><td>Gecko</td><td>The old "Mozilla Suite" browser and mail package. It became SeaMonkey, and its browser part was spun out as Firefox.</td></tr>
+<tr><td>Opera</td><td>Opera Software (Norway)</td><td>1995</td><td>Presto, then Blink</td><td>Active. Early to bring tabs and speed dial.</td></tr>
+<tr><td>Firefox</td><td>Mozilla</td><td>2004</td><td>Gecko</td><td>Active, open source, privacy-focused.</td></tr>
+<tr><td>Chrome</td><td>Google</td><td>2008</td><td>Blink, V8 for JavaScript</td><td>Most used browser worldwide.</td></tr>
+</table></div>
+<div class="note tip"><span class="nt">Remember</span><p>"Mozilla" is both an organisation and the name of an old browser suite. If a question asks "Mozilla" as a browser, answer that it is the open-source browser family from Netscape's code, whose modern form is Firefox.</p></div>
+<p>Others you should know: Microsoft Edge (Chromium-based), Apple Safari (WebKit), Brave.</p>
+</div>
+
+<div class="topic" id="u1-search">
+<h3>Search engines</h3>
+<p>A search engine is a website with a huge database of web pages that <mark>finds pages matching the words you type</mark>. It works in three steps:</p>
+<ul class="flow">
+  <li><b>1. Crawl</b>A program called a crawler (spider, bot) follows links and reads pages all over the web</li>
+  <li><b>2. Index</b>Words and details from each page are stored in a giant searchable index</li>
+  <li><b>3. Rank</b>When you search, an algorithm sorts matching pages by relevance and quality and shows the result page (SERP)</li>
+</ul>
+<p><b>Examples:</b> Google, Bing, DuckDuckGo, Yahoo, Baidu. <b>Types:</b> crawler-based (Google), directory-based (early Yahoo, pages sorted by humans into categories), meta-search (asks several engines and combines results).</p>
+<div class="note tip"><span class="nt">Remember</span><p>Chrome is a <em>browser</em>. Google is a <em>search engine</em>. A browser shows pages; a search engine helps you find them.</p></div>
+</div>
+
+<div class="topic" id="u1-servers">
+<h3>Web servers and proxy server</h3>
+<h4>Web server</h4>
+<p>A web server is a program (and the computer running it) that <mark>stores website files and sends them to browsers when they ask</mark> over HTTP. It waits on port 80 (HTTP) or 443 (HTTPS). For plain files it just sends them; for dynamic pages it first runs a script (PHP, ASP.NET, Node.js) and sends the result.</p>
+<div class="tw"><table class="t">
+<tr><th></th><th>Apache HTTP Server</th><th>IIS (Internet Information Services)</th></tr>
+<tr><td>Made by</td><td>Apache Software Foundation, 1995</td><td>Microsoft</td></tr>
+<tr><td>Cost</td><td>Free, open source</td><td>Comes with Windows Server (licensed)</td></tr>
+<tr><td>Runs on</td><td>Linux, Windows, macOS</td><td>Windows only</td></tr>
+<tr><td>Config</td><td>Text files (<code>httpd.conf</code>, <code>.htaccess</code>)</td><td>Graphical IIS Manager</td></tr>
+<tr><td>Best with</td><td>PHP, MySQL (LAMP and XAMPP stacks)</td><td>ASP.NET, SQL Server</td></tr>
+</table></div>
+<p>A very popular modern one is <b>Nginx</b>, known for speed under heavy load.</p>
+
+<h4>Proxy server</h4>
+<p>A proxy is a <mark>middleman between your computer and the internet</mark>. You ask the proxy for a page, the proxy fetches it for you and passes it back. Think of the school office: students don't go to the principal directly; the office handles requests.</p>
+<ul>
+  <li><b>Caching:</b> keeps copies of popular pages so the next person gets them faster and bandwidth is saved.</li>
+  <li><b>Filtering:</b> colleges and offices block certain sites.</li>
+  <li><b>Anonymity:</b> the website sees the proxy's IP, not yours.</li>
+  <li><b>Security and logging:</b> checks traffic and records who accessed what.</li>
+</ul>
+<p><b>Forward proxy</b> sits in front of clients (the kind above). A <b>reverse proxy</b> sits in front of servers, spreading load and protecting them (Nginx, Cloudflare).</p>
+</div>
+
+<div class="topic" id="u1-http">
+<h3>HTTP protocol</h3>
+<p>HTTP (HyperText Transfer Protocol) is the set of rules browsers and web servers use to talk. It works as <mark>request and response</mark>: the browser asks, the server answers, and that's the end of the conversation.</p>
+<ul>
+  <li><b>Stateless:</b> the server doesn't remember you between requests. Websites add memory using <em>cookies</em> and <em>sessions</em>.</li>
+  <li><b>Text-based, port 80.</b> <b>HTTPS</b> is HTTP wrapped in TLS encryption, port 443, shown by the padlock.</li>
+  <li><b>Versions:</b> 1.0 (1996), 1.1 (1997), 2 (2015), 3 (2022).</li>
+</ul>
+<p>What a request and a response look like on the wire:</p>
+<div class="code"><div class="code-bar"><span>http</span><button type="button">Copy</button></div><pre><code>GET /courses/web.html HTTP/1.1        &lt;- request line: method, path, version
+Host: www.example.com                 &lt;- headers
+User-Agent: Chrome/120
+Accept: text/html
+
+HTTP/1.1 200 OK                       &lt;- response status line
+Content-Type: text/html               &lt;- headers
+Content-Length: 1234
+
+&lt;html&gt; ... the page ... &lt;/html&gt;       &lt;- body</code></pre></div>
+<div class="tw"><table class="t">
+<tr><th>Method</th><th>Purpose</th></tr>
+<tr><td>GET</td><td>Ask for a resource (opening a page). Data goes in the URL.</td></tr>
+<tr><td>POST</td><td>Send data to the server (submit a form). Data goes in the body.</td></tr>
+<tr><td>PUT</td><td>Replace or create a resource</td></tr>
+<tr><td>DELETE</td><td>Remove a resource</td></tr>
+<tr><td>HEAD</td><td>Same as GET but only headers come back</td></tr>
+</table></div>
+<div class="tw"><table class="t">
+<tr><th>Code</th><th>Group</th><th>Common ones</th></tr>
+<tr><td>1xx</td><td>Information</td><td>100 Continue</td></tr>
+<tr><td>2xx</td><td>Success</td><td>200 OK, 201 Created</td></tr>
+<tr><td>3xx</td><td>Redirect</td><td>301 Moved Permanently, 302 Found, 304 Not Modified</td></tr>
+<tr><td>4xx</td><td>Client's fault</td><td>400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found</td></tr>
+<tr><td>5xx</td><td>Server's fault</td><td>500 Internal Server Error, 503 Service Unavailable</td></tr>
+</table></div>
+</div>
+
+<div class="topic" id="u1-story">
+<h3>What happens when you press Enter (ties the unit together)</h3>
+<p>If you ever want one story that uses every term in this unit, tell this one. You type <code>https://www.example.com/index.html</code> and press Enter:</p>
+<ul class="flow vert">
+  <li><b>Browser splits the URL</b>scheme https, host www.example.com, path /index.html</li>
+  <li><b>DNS lookup</b>Domain name becomes an IP address (through your ISP's DNS server)</li>
+  <li><b>Connection</b>Browser opens a TCP connection to that IP on port 443, and sets up TLS encryption</li>
+  <li><b>HTTP request</b>Browser sends GET /index.html (through a proxy if one is configured)</li>
+  <li><b>Server responds</b>The web server (Apache, IIS, Nginx) sends status 200 OK and the HTML</li>
+  <li><b>Browser renders</b>Reads the HTML, fetches CSS, JavaScript and images with more requests, and draws the page</li>
+</ul>
+</div>
+
+<div class="topic" id="u1-qa">
+<h3>Likely questions and checklist</h3>
+<details class="qa"><summary>Differentiate between the Internet and the World Wide Web.</summary><div class="ans"><p>The Internet is the global network of connected computers (hardware and protocols). The WWW is a service that runs on it: a collection of linked web pages accessed through HTTP and a browser. E-mail and FTP also use the internet but are not the web.</p></div></details>
+<details class="qa"><summary>What is DNS? Explain how it works.</summary><div class="ans"><p>DNS converts domain names to IP addresses. The browser checks its cache, then asks a resolver (usually the ISP's). The resolver asks a root server, then the TLD server (.com), then the authoritative name server, which returns the IP. The result is cached.</p></div></details>
+<details class="qa"><summary>Explain SMTP, POP3 and IMAP.</summary><div class="ans"><p>SMTP sends e-mail from client to server and between servers. POP3 downloads mail to the device (usually deleting it from the server). IMAP keeps mail on the server and syncs it across devices.</p></div></details>
+<details class="qa"><summary>What is a URL? Explain its parts.</summary><div class="ans"><p>A URL is the address of a resource on the web. Parts: scheme (https), host (www.example.com), optional port (:443), path (/courses/web.html), query string (?unit=1) and fragment (#intro).</p></div></details>
+<details class="qa"><summary>Compare Apache and IIS.</summary><div class="ans"><p>Apache is free, open source and cross-platform, configured through text files, and popular with PHP/MySQL. IIS is Microsoft's server, runs only on Windows, has a graphical manager and is popular with ASP.NET.</p></div></details>
+<details class="qa"><summary>What is a proxy server? Give its uses.</summary><div class="ans"><p>An intermediary between clients and the internet. Uses: caching for speed, filtering and blocking sites, hiding the client's IP address, and improving security and logging.</p></div></details>
+<details class="qa"><summary>Explain the HTTP request and response with methods and status codes.</summary><div class="ans"><p>The client sends a request (method, path, headers, optional body) and the server returns a response (status code, headers, body). Methods: GET, POST, PUT, DELETE, HEAD. Status: 2xx success, 3xx redirect, 4xx client error (404), 5xx server error (500).</p></div></details>
+<details class="qa"><summary>Differentiate between e-commerce and e-business, and name the types of e-commerce.</summary><div class="ans"><p>E-commerce is online buying and selling; e-business is all business activity done electronically, so e-commerce is a part of it. Types: B2B, B2C, C2C, C2B, B2G.</p></div></details>
+
+<h4>Revision checklist</h4>
+<ul class="check">
+  <li><label><input type="checkbox" data-k="u1-1"><span>I can explain Internet vs WWW with the roads and vehicles picture</span></label></li>
+  <li><label><input type="checkbox" data-k="u1-2"><span>I can name SMTP, POP3, IMAP, Telnet and FTP and say what each does</span></label></li>
+  <li><label><input type="checkbox" data-k="u1-3"><span>I can list the types of e-commerce and separate it from e-business</span></label></li>
+  <li><label><input type="checkbox" data-k="u1-4"><span>I can explain DNS resolution step by step</span></label></li>
+  <li><label><input type="checkbox" data-k="u1-5"><span>I know IPv4 vs IPv6 and the address classes</span></label></li>
+  <li><label><input type="checkbox" data-k="u1-6"><span>I can draw the URL parts from memory</span></label></li>
+  <li><label><input type="checkbox" data-k="u1-7"><span>I can compare the browsers in the table (who, when, engine)</span></label></li>
+  <li><label><input type="checkbox" data-k="u1-8"><span>I can explain crawl, index, rank for search engines</span></label></li>
+  <li><label><input type="checkbox" data-k="u1-9"><span>I can compare Apache and IIS, and explain a proxy server</span></label></li>
+  <li><label><input type="checkbox" data-k="u1-10"><span>I can narrate "what happens when you press Enter"</span></label></li>
+</ul>
+</div>
+</section>
+
+<!-- ============ UNIT II ============ -->
+<section class="unit" id="unit2" style="--u:var(--u2)">
+<header class="unit-head">
+  <div class="unit-no">Unit II</div>
+  <h2>HTML and graphics</h2>
+  <p class="covers">HTML tag reference, block-level formatting, list tags, hyperlink tags, images and image maps, table tags, form tags, frame tags, executable content tags.</p>
+</header>
+
+
+<div class="topic" id="u2-basics">
+<h3>HTML tag reference</h3>
+<p><mark>HTML (HyperText Markup Language)</mark> is the language used to describe the structure and content of a web page. It is a <em>markup</em> language, not a programming language: it labels things ("this is a heading", "this is a link") and the browser decides how to show them.</p>
+<ul>
+  <li><b>Tag:</b> a keyword in angle brackets, like <code>&lt;p&gt;</code>. Most come in pairs: an opening tag <code>&lt;p&gt;</code> and a closing tag <code>&lt;/p&gt;</code>.</li>
+  <li><b>Element:</b> opening tag + content + closing tag. <b>Empty (void) elements</b> have no closing tag: <code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;input&gt;</code>.</li>
+  <li><b>Attribute:</b> extra information inside the opening tag, as <code>name="value"</code>, like <code>&lt;a href="page.html"&gt;</code>.</li>
+  <li>Tags are not case-sensitive in HTML, but lowercase is the standard.</li>
+</ul>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;!DOCTYPE html&gt;                     &lt;!-- tells the browser: this is HTML5 --&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;                              &lt;!-- information ABOUT the page, not shown --&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;title&gt;My First Page&lt;/title&gt;       &lt;!-- text on the browser tab --&gt;
+&lt;/head&gt;
+&lt;body&gt;                              &lt;!-- everything the visitor SEES --&gt;
+  &lt;h1&gt;Hello, world&lt;/h1&gt;
+  &lt;p&gt;This is a paragraph.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+<h4>Quick tag reference</h4>
+<div class="tw"><table class="t">
+<tr><th>Tag</th><th>Purpose</th></tr>
+<tr><td><code>&lt;html&gt;</code></td><td>Root of the document</td></tr>
+<tr><td><code>&lt;head&gt;</code></td><td>Container for title, meta, link, style, script</td></tr>
+<tr><td><code>&lt;title&gt;</code></td><td>Page title shown on the tab</td></tr>
+<tr><td><code>&lt;meta&gt;</code></td><td>Metadata: character set, description, keywords, viewport</td></tr>
+<tr><td><code>&lt;link&gt;</code></td><td>Connects an external resource, usually a CSS file</td></tr>
+<tr><td><code>&lt;style&gt;</code></td><td>Internal CSS</td></tr>
+<tr><td><code>&lt;script&gt;</code></td><td>JavaScript</td></tr>
+<tr><td><code>&lt;body&gt;</code></td><td>Visible content</td></tr>
+<tr><td><code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code></td><td>Headings</td></tr>
+<tr><td><code>&lt;p&gt;</code></td><td>Paragraph</td></tr>
+<tr><td><code>&lt;a&gt;</code></td><td>Hyperlink</td></tr>
+<tr><td><code>&lt;img&gt;</code></td><td>Image</td></tr>
+<tr><td><code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code></td><td>Lists</td></tr>
+<tr><td><code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;td&gt;</code></td><td>Tables</td></tr>
+<tr><td><code>&lt;form&gt;</code>, <code>&lt;input&gt;</code></td><td>Forms and inputs</td></tr>
+<tr><td><code>&lt;div&gt;</code>, <code>&lt;span&gt;</code></td><td>Generic containers (block and inline)</td></tr>
+</table></div>
+</div>
+
+<div class="topic" id="u2-block">
+<h3>Block-level formatting</h3>
+<p>Every HTML element is either <b>block-level</b> or <b>inline</b>. This is the most useful idea in the whole unit.</p>
+<div class="tw"><table class="t">
+<tr><th></th><th>Block-level</th><th>Inline</th></tr>
+<tr><td>Behaviour</td><td>Starts on a new line and stretches to full width</td><td>Sits inside a line and takes only the width it needs</td></tr>
+<tr><td>Examples</td><td><code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code> to <code>&lt;h6&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;table&gt;</code>, <code>&lt;form&gt;</code>, <code>&lt;blockquote&gt;</code>, <code>&lt;pre&gt;</code>, <code>&lt;hr&gt;</code>, <code>&lt;address&gt;</code></td><td><code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;br&gt;</code></td></tr>
+</table></div>
+<h4>Block-level tags</h4>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;h1&gt;Main heading&lt;/h1&gt;            &lt;!-- h1 biggest ... h6 smallest --&gt;
+&lt;p&gt;A paragraph. Extra spaces and line
+breaks in the source are ignored by the browser.&lt;/p&gt;
+&lt;br&gt;                             &lt;!-- line break, empty tag --&gt;
+&lt;hr&gt;                             &lt;!-- horizontal line --&gt;
+&lt;pre&gt;
+  Preformatted text keeps
+      spaces and line breaks.
+&lt;/pre&gt;
+&lt;blockquote&gt;A long quotation, indented by the browser.&lt;/blockquote&gt;
+&lt;address&gt;Contact: Asha, Balrampur, UP&lt;/address&gt;
+&lt;div style="background:#eee"&gt;A generic block used to group things.&lt;/div&gt;</code></pre></div>
+<h4>Text-level (inline) formatting tags</h4>
+<div class="tw"><table class="t">
+<tr><th>Tag</th><th>Effect</th><th>Note</th></tr>
+<tr><td><code>&lt;b&gt;</code> / <code>&lt;strong&gt;</code></td><td><b>Bold</b> / important</td><td><code>&lt;strong&gt;</code> carries meaning ("important"), <code>&lt;b&gt;</code> only changes the look</td></tr>
+<tr><td><code>&lt;i&gt;</code> / <code>&lt;em&gt;</code></td><td><i>Italic</i> / emphasis</td><td>Same idea: <code>&lt;em&gt;</code> is meaning</td></tr>
+<tr><td><code>&lt;u&gt;</code></td><td><u>Underline</u></td><td>Avoid, looks like a link</td></tr>
+<tr><td><code>&lt;sub&gt;</code> and <code>&lt;sup&gt;</code></td><td>H<sub>2</sub>O and x<sup>2</sup></td><td>Subscript and superscript</td></tr>
+<tr><td><code>&lt;mark&gt;</code></td><td><mark>Highlighted</mark></td><td>HTML5</td></tr>
+<tr><td><code>&lt;del&gt;</code> and <code>&lt;ins&gt;</code></td><td><del>deleted</del> and <ins>inserted</ins></td><td>Edits</td></tr>
+<tr><td><code>&lt;small&gt;</code>, <code>&lt;code&gt;</code>, <code>&lt;kbd&gt;</code></td><td>Small, computer code, keyboard key</td><td></td></tr>
+</table></div>
+<p><b>Physical vs logical tags:</b> physical tags (<code>&lt;b&gt;</code>, <code>&lt;i&gt;</code>, <code>&lt;u&gt;</code>) say <em>how</em> text looks. Logical tags (<code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;code&gt;</code>) say <em>what</em> the text is, and let the browser or a screen reader choose the look. Exams like this question.</p>
+<p><b>Special characters (entities):</b> <code>&amp;lt;</code> for &lt;, <code>&amp;gt;</code> for &gt;, <code>&amp;amp;</code> for &amp;, <code>&amp;nbsp;</code> for a non-breaking space, <code>&amp;copy;</code> for &copy;.</p>
+<div class="note old"><span class="nt">Outdated</span><p><code>&lt;font&gt;</code>, <code>&lt;center&gt;</code>, <code>&lt;big&gt;</code>, <code>&lt;strike&gt;</code>, <code>&lt;tt&gt;</code> and attributes like <code>bgcolor</code>, <code>align</code> are removed from HTML5. Use CSS instead: <code>color</code>, <code>font-size</code>, <code>text-align</code>.</p></div>
+</div>
+
+<div class="topic" id="u2-lists">
+<h3>List tags</h3>
+<div class="tw"><table class="t">
+<tr><th>Type</th><th>Tags</th><th>Shows</th></tr>
+<tr><td>Unordered</td><td><code>&lt;ul&gt;</code> with <code>&lt;li&gt;</code></td><td>Bullets</td></tr>
+<tr><td>Ordered</td><td><code>&lt;ol&gt;</code> with <code>&lt;li&gt;</code></td><td>Numbers or letters</td></tr>
+<tr><td>Definition</td><td><code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code> (term), <code>&lt;dd&gt;</code> (description)</td><td>Term with its meaning below</td></tr>
+</table></div>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;ul type="square"&gt;                   &lt;!-- disc (default), circle, square --&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ol type="A" start="3"&gt;              &lt;!-- type: 1, a, A, i, I. Starts at C --&gt;
+  &lt;li&gt;Internet&lt;/li&gt;
+  &lt;li&gt;Web&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;dl&gt;
+  &lt;dt&gt;HTTP&lt;/dt&gt;
+  &lt;dd&gt;Protocol for transferring web pages&lt;/dd&gt;
+  &lt;dt&gt;URL&lt;/dt&gt;
+  &lt;dd&gt;Address of a web resource&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;ul&gt;                                &lt;!-- nested list: put a list INSIDE an li --&gt;
+  &lt;li&gt;Frontend
+    &lt;ul&gt;&lt;li&gt;HTML&lt;/li&gt;&lt;li&gt;JS&lt;/li&gt;&lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</code></pre></div>
+<div class="note old"><span class="nt">Outdated</span><p>The <code>type</code> attribute on lists is deprecated. Modern way: <code>list-style-type</code> in CSS. You still need the attribute for the exam.</p></div>
+</div>
+
+<div class="topic" id="u2-links">
+<h3>Hyperlink tags</h3>
+<p>The anchor tag <code>&lt;a&gt;</code> creates a link. The <code>href</code> attribute (hypertext reference) holds the destination.</p>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;a href="https://www.google.com"&gt;External link (absolute URL)&lt;/a&gt;
+&lt;a href="about.html"&gt;Another page in my site (relative URL)&lt;/a&gt;
+&lt;a href="https://example.com" target="_blank"&gt;Opens in a new tab&lt;/a&gt;
+&lt;a href="mailto:asha@example.com"&gt;Send an e-mail&lt;/a&gt;
+&lt;a href="tel:+911234567890"&gt;Call us&lt;/a&gt;
+&lt;a href="notes.pdf" download&gt;Download the file&lt;/a&gt;
+
+&lt;!-- Link to a place inside the SAME page --&gt;
+&lt;a href="#unit3"&gt;Jump to Unit 3&lt;/a&gt;
+...
+&lt;h2 id="unit3"&gt;Unit 3&lt;/h2&gt;
+
+&lt;!-- An image can be a link --&gt;
+&lt;a href="home.html"&gt;&lt;img src="logo.png" alt="Home"&gt;&lt;/a&gt;</code></pre></div>
+<div class="tw"><table class="t">
+<tr><th>target value</th><th>Opens the link in</th></tr>
+<tr><td><code>_self</code></td><td>Same tab (default)</td></tr>
+<tr><td><code>_blank</code></td><td>New tab or window</td></tr>
+<tr><td><code>_parent</code></td><td>Parent frame</td></tr>
+<tr><td><code>_top</code></td><td>Full window, leaving all frames</td></tr>
+<tr><td><i>frame name</i></td><td>The named frame or iframe</td></tr>
+</table></div>
+<p>Default link colours: <span style="color:#0000ee">blue</span> (not visited), <span style="color:#551a8b">purple</span> (visited), <span style="color:#ee0000">red</span> (being clicked). Old pages set them with <code>link</code>, <code>vlink</code>, <code>alink</code> on <code>&lt;body&gt;</code>. Today use CSS: <code>a:link</code>, <code>a:visited</code>, <code>a:hover</code>, <code>a:active</code>.</p>
+<div class="note tip"><span class="nt">Remember</span><p>Older HTML made in-page targets with <code>&lt;a name="unit3"&gt;</code>. Modern HTML just uses <code>id</code> on any element. Both work with <code>href="#unit3"</code>.</p></div>
+</div>
+
+<div class="topic" id="u2-images">
+<h3>Images and image maps</h3>
+<h4>The image tag</h4>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;img src="photo.jpg" alt="Students in the lab" width="300" height="200" title="Lab session"&gt;</code></pre></div>
+<ul>
+  <li><code>src</code> is the file path or URL. <code>alt</code> is the text shown if the image can't load, and what screen readers speak. <code>width</code>/<code>height</code> set the size.</li>
+  <li><b>Formats:</b> JPEG for photos, PNG for graphics needing transparency, GIF for simple animation, SVG for scalable vector drawings, WebP for small file sizes.</li>
+</ul>
+
+<h4>What is an image map?</h4>
+<p>An image map is <mark>one image with several clickable regions, and each region links to a different place</mark>. Examples: a map of India where each state links to its page, or a picture of a computer where clicking the monitor, keyboard or mouse opens different pages.</p>
+
+<h4>Client-side image maps</h4>
+<p>The browser itself works out which region was clicked. All the information sits in the HTML. Two parts: the image with <code>usemap</code>, and a <code>&lt;map&gt;</code> containing <code>&lt;area&gt;</code> tags.</p>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;img src="computer.png" usemap="#pcmap" alt="Computer parts"&gt;
+
+&lt;map name="pcmap"&gt;
+  &lt;area shape="rect"   coords="10,10,110,90"    href="monitor.html"  alt="Monitor"&gt;
+  &lt;area shape="circle" coords="200,50,40"       href="mouse.html"    alt="Mouse"&gt;
+  &lt;area shape="poly"   coords="20,120,80,120,50,160" href="stand.html" alt="Stand"&gt;
+  &lt;area shape="default" href="parts.html" alt="All parts"&gt;
+&lt;/map&gt;</code></pre></div>
+<div class="tw"><table class="t">
+<tr><th>shape</th><th>coords</th><th>Meaning</th></tr>
+<tr><td><code>rect</code></td><td>x1,y1,x2,y2</td><td>Top-left corner and bottom-right corner</td></tr>
+<tr><td><code>circle</code></td><td>x,y,radius</td><td>Centre point and radius</td></tr>
+<tr><td><code>poly</code></td><td>x1,y1,x2,y2,x3,y3...</td><td>Each corner of the polygon in order</td></tr>
+<tr><td><code>default</code></td><td>none</td><td>Anywhere not covered by the other areas</td></tr>
+</table></div>
+<p>Coordinates are in pixels measured from the <b>top-left corner of the image</b> (0,0). The <code>usemap</code> value starts with <code>#</code> and matches the <code>name</code> of the map.</p>
+
+<div class="demo"><span class="nt">Try it: a working image map</span>
+<p>Click the rectangle, the circle or the triangle. Anywhere else uses the default area.</p>
+<img id="demoMapImg" width="300" height="180" alt="Demo shapes: a rectangle, a circle and a triangle" usemap="#demoMap">
+<map name="demoMap">
+  <area shape="rect" coords="10,10,110,90" href="#" alt="Rectangle" data-say="You clicked the rectangle (rect)">
+  <area shape="circle" coords="200,60,45" href="#" alt="Circle" data-say="You clicked the circle (circle)">
+  <area shape="poly" coords="40,170,110,100,180,170" href="#" alt="Triangle" data-say="You clicked the triangle (poly)">
+  <area shape="default" href="#" alt="Background" data-say="You clicked outside the shapes (default)">
+</map>
+<div class="out" id="demoMapOut">Click a shape.</div>
+</div>
+
+<h4>Server-side image maps</h4>
+<p>The browser doesn't know the regions. It sends the <b>coordinates of the click</b> to a program on the server, and the program decides which page to send back. The image is placed inside a link and given the <code>ismap</code> attribute.</p>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;a href="/cgi-bin/mapper"&gt;
+  &lt;img src="computer.png" ismap alt="Computer parts"&gt;
+&lt;/a&gt;
+&lt;!-- Click at pixel (57, 33) and the browser requests:
+     /cgi-bin/mapper?57,33
+     The server script looks up which region that is. --&gt;</code></pre></div>
+
+<h4>Client-side vs server-side</h4>
+<div class="tw"><table class="t">
+<tr><th></th><th>Client-side</th><th>Server-side</th></tr>
+<tr><td>Who decides the region?</td><td>The browser</td><td>A script on the server</td></tr>
+<tr><td>Attribute</td><td><code>usemap</code> + <code>&lt;map&gt;</code>/<code>&lt;area&gt;</code></td><td><code>ismap</code> inside <code>&lt;a&gt;</code></td></tr>
+<tr><td>Speed</td><td>Fast, no round trip</td><td>Slower, needs a server request for every click</td></tr>
+<tr><td>Status bar shows target URL?</td><td>Yes</td><td>No, only coordinates</td></tr>
+<tr><td>Works without a server?</td><td>Yes, even from a local file</td><td>No</td></tr>
+<tr><td>Accessibility</td><td>Good, each area can have <code>alt</code></td><td>Poor</td></tr>
+</table></div>
+
+<h4>Using both together</h4>
+<p>Put <code>usemap</code> and <code>ismap</code> on the same image, and wrap it in a link to the server script. A modern browser uses the client-side map. An old browser that doesn't understand image maps falls back to the server-side one.</p>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;a href="/cgi-bin/mapper"&gt;
+  &lt;img src="computer.png" usemap="#pcmap" ismap alt="Computer parts"&gt;
+&lt;/a&gt;</code></pre></div>
+
+<h4>Alternative text for image maps</h4>
+<ul>
+  <li>Give the image an <code>alt</code> describing the whole thing ("Computer parts, click a part to learn more").</li>
+  <li>Give <b>every <code>&lt;area&gt;</code> its own <code>alt</code></b>. Screen readers and text-only browsers use it, and it shows as a tooltip in some browsers.</li>
+  <li>Best practice: also add plain text links below the image for the same destinations.</li>
+</ul>
+<div class="note old"><span class="nt">Outdated</span><p>Server-side maps are hardly used now. Today the same effect is done with clickable SVG shapes or CSS-positioned links. Client-side maps still work fine.</p></div>
+</div>
+
+<div class="topic" id="u2-tables">
+<h3>Tables</h3>
+<p>A table shows data in rows and columns. The structure is: the <code>&lt;table&gt;</code> contains rows (<code>&lt;tr&gt;</code>), and each row contains cells (<code>&lt;th&gt;</code> for header cells, <code>&lt;td&gt;</code> for data cells).</p>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;table border="1"&gt;
+  &lt;caption&gt;Student marks&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Web Tech&lt;/th&gt;&lt;th&gt;DBMS&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Asha&lt;/td&gt;&lt;td&gt;82&lt;/td&gt;&lt;td&gt;75&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Ravi&lt;/td&gt;&lt;td&gt;67&lt;/td&gt;&lt;td&gt;71&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;&lt;td&gt;Average&lt;/td&gt;&lt;td&gt;74.5&lt;/td&gt;&lt;td&gt;73&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;</code></pre></div>
+<div class="tw"><table class="t">
+<tr><th>Tag or attribute</th><th>Meaning</th></tr>
+<tr><td><code>&lt;caption&gt;</code></td><td>Title of the table</td></tr>
+<tr><td><code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code></td><td>Header, body and footer groups of rows</td></tr>
+<tr><td><code>border</code></td><td>Border thickness (old way; use CSS <code>border</code>)</td></tr>
+<tr><td><code>cellpadding</code></td><td>Space inside a cell, between border and content</td></tr>
+<tr><td><code>cellspacing</code></td><td>Space between cells</td></tr>
+<tr><td><code>colspan</code></td><td>A cell stretches across several columns</td></tr>
+<tr><td><code>rowspan</code></td><td>A cell stretches down several rows</td></tr>
+<tr><td><code>width</code>, <code>align</code>, <code>bgcolor</code></td><td>Old presentation attributes, replaced by CSS</td></tr>
+</table></div>
+<h4>Merging cells</h4>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;table border="1"&gt;
+  &lt;tr&gt;
+    &lt;th colspan="2"&gt;Timetable&lt;/th&gt;     &lt;!-- spans 2 columns --&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td rowspan="2"&gt;Monday&lt;/td&gt;        &lt;!-- spans 2 rows --&gt;
+    &lt;td&gt;Web Tech&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;DBMS&lt;/td&gt;                      &lt;!-- Monday cell is above, so only 1 cell here --&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;</code></pre></div>
+<div class="note tip"><span class="nt">Remember</span><p>When you use <code>rowspan</code>, the rows below have <em>fewer</em> cells, because the merged cell already occupies space. Forgetting this is the number one reason tables look broken.</p></div>
+<div class="note old"><span class="nt">Outdated habit</span><p>In the 1990s people built whole page layouts with nested tables. Tables are for <em>data</em> only. Page layout is done with CSS Flexbox and Grid.</p></div>
+</div>
+
+<div class="topic" id="u2-forms">
+<h3>Form tags</h3>
+<p>A form collects information from the visitor and sends it to a server. Every form control has a <code>name</code>; when submitted, the browser sends <code>name=value</code> pairs.</p>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;form action="/register" method="post"&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Register&lt;/legend&gt;
+
+    &lt;label for="n"&gt;Name&lt;/label&gt;
+    &lt;input type="text" id="n" name="fullname" placeholder="Your name" required&gt;
+
+    &lt;label for="e"&gt;Email&lt;/label&gt;
+    &lt;input type="email" id="e" name="email" required&gt;
+
+    &lt;label for="p"&gt;Password&lt;/label&gt;
+    &lt;input type="password" id="p" name="pw" minlength="6"&gt;
+
+    Gender:
+    &lt;input type="radio" name="gender" value="f"&gt; Female
+    &lt;input type="radio" name="gender" value="m"&gt; Male
+
+    Hobbies:
+    &lt;input type="checkbox" name="hobby" value="code"&gt; Coding
+    &lt;input type="checkbox" name="hobby" value="music"&gt; Music
+
+    &lt;label for="c"&gt;Course&lt;/label&gt;
+    &lt;select id="c" name="course"&gt;
+      &lt;option value="bca"&gt;BCA&lt;/option&gt;
+      &lt;option value="bsc" selected&gt;BSc&lt;/option&gt;
+    &lt;/select&gt;
+
+    &lt;label for="m"&gt;Message&lt;/label&gt;
+    &lt;textarea id="m" name="msg" rows="4" cols="30"&gt;&lt;/textarea&gt;
+
+    &lt;input type="submit" value="Register"&gt;
+    &lt;input type="reset" value="Clear"&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;</code></pre></div>
+<h4>Form attributes</h4>
+<div class="tw"><table class="t">
+<tr><th>Attribute</th><th>Meaning</th></tr>
+<tr><td><code>action</code></td><td>URL of the server program that receives the data</td></tr>
+<tr><td><code>method</code></td><td><code>get</code> or <code>post</code></td></tr>
+<tr><td><code>enctype</code></td><td>How data is encoded. Use <code>multipart/form-data</code> when uploading files</td></tr>
+<tr><td><code>target</code></td><td>Where to show the response</td></tr>
+</table></div>
+<div class="tw"><table class="t">
+<tr><th></th><th>GET</th><th>POST</th></tr>
+<tr><td>Data location</td><td>In the URL (<code>?name=Asha&amp;age=20</code>)</td><td>In the request body</td></tr>
+<tr><td>Visible / bookmarkable</td><td>Yes</td><td>No</td></tr>
+<tr><td>Size limit</td><td>Yes, URL length limit</td><td>Practically none</td></tr>
+<tr><td>Use for</td><td>Searching, filtering</td><td>Passwords, registration, uploads</td></tr>
+</table></div>
+<h4>Input types</h4>
+<div class="tw"><table class="t">
+<tr><th>type</th><th>Gives</th></tr>
+<tr><td><code>text</code>, <code>password</code></td><td>One-line text; password shows dots</td></tr>
+<tr><td><code>radio</code></td><td>Choose <em>one</em> from a group (same <code>name</code> for the group)</td></tr>
+<tr><td><code>checkbox</code></td><td>Tick any number of options</td></tr>
+<tr><td><code>submit</code>, <code>reset</code>, <code>button</code></td><td>Send the form, clear the form, a plain button for JavaScript</td></tr>
+<tr><td><code>file</code></td><td>File chooser</td></tr>
+<tr><td><code>hidden</code></td><td>Invisible data sent with the form</td></tr>
+<tr><td><code>email</code>, <code>number</code>, <code>date</code>, <code>tel</code>, <code>url</code>, <code>color</code>, <code>range</code></td><td>HTML5 types with built-in validation and pickers</td></tr>
+</table></div>
+<p>Other controls: <code>&lt;textarea&gt;</code> (many lines), <code>&lt;select&gt;</code> with <code>&lt;option&gt;</code> (drop-down; <code>multiple</code> makes it a list), <code>&lt;button&gt;</code>, <code>&lt;label&gt;</code> (clicking it focuses its input), <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> (group and title). Useful attributes: <code>required</code>, <code>placeholder</code>, <code>readonly</code>, <code>disabled</code>, <code>maxlength</code>, <code>min</code>, <code>max</code>, <code>pattern</code>, <code>checked</code>, <code>selected</code>.</p>
+</div>
+
+<div class="topic" id="u2-frames">
+<h3>Frame tags</h3>
+<p>Frames split the browser window into separate areas, each showing a different HTML file. A typical old layout: a narrow menu frame on the left that stays put, and a content frame on the right that changes.</p>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;!-- index.html : no &lt;body&gt; when using frameset --&gt;
+&lt;frameset cols="25%,75%"&gt;
+  &lt;frame src="menu.html" name="menu"&gt;
+  &lt;frame src="home.html" name="main"&gt;
+  &lt;noframes&gt;
+    &lt;body&gt;Your browser does not support frames.&lt;/body&gt;
+  &lt;/noframes&gt;
+&lt;/frameset&gt;
+
+&lt;!-- In menu.html, this link loads INTO the right frame: --&gt;
+&lt;a href="notes.html" target="main"&gt;Notes&lt;/a&gt;</code></pre></div>
+<ul>
+  <li><code>&lt;frameset&gt;</code> defines the layout with <code>rows</code> or <code>cols</code> (pixels or percentages). It can be nested.</li>
+  <li><code>&lt;frame&gt;</code> defines one pane (<code>src</code>, <code>name</code>, <code>scrolling</code>, <code>noresize</code>). The <code>name</code> is what links use as their <code>target</code>.</li>
+  <li><code>&lt;noframes&gt;</code> is the fallback text for browsers without frame support.</li>
+  <li><b>Problems:</b> the URL doesn't change so pages can't be bookmarked, the Back button misbehaves, search engines index badly, poor accessibility.</li>
+</ul>
+<div class="note old"><span class="nt">Outdated</span><p><code>&lt;frameset&gt;</code>, <code>&lt;frame&gt;</code> and <code>&lt;noframes&gt;</code> were <b>removed in HTML5</b> and modern browsers ignore them. The one survivor is <code>&lt;iframe&gt;</code>, which embeds another page inside a page (YouTube videos, Google Maps). Fixed menus are now built with CSS.</p></div>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;iframe src="https://www.example.com" width="400" height="250" title="Example"&gt;&lt;/iframe&gt;</code></pre></div>
+</div>
+
+<div class="topic" id="u2-exec">
+<h3>Executable content tags</h3>
+<p>Most HTML tags only <em>describe</em> content. "Executable content" tags bring in <mark>code or programs that actually run inside the browser</mark>.</p>
+<div class="tw"><table class="t">
+<tr><th>Tag</th><th>What it does</th><th>Status</th></tr>
+<tr><td><code>&lt;script&gt;</code></td><td>Runs JavaScript (inline or from a file with <code>src</code>)</td><td>Current. Use <code>defer</code> to run after the page loads</td></tr>
+<tr><td><code>&lt;noscript&gt;</code></td><td>Content shown only if JavaScript is off</td><td>Current</td></tr>
+<tr><td><code>&lt;applet&gt;</code></td><td>Runs a Java applet: <code>code</code>, <code>width</code>, <code>height</code>, <code>&lt;param&gt;</code> for settings</td><td>Obsolete</td></tr>
+<tr><td><code>&lt;object&gt;</code></td><td>Embeds an external resource: plugin content, PDF, media (<code>data</code>, <code>type</code>)</td><td>Still valid, rarely needed</td></tr>
+<tr><td><code>&lt;embed&gt;</code></td><td>Embeds plugin or media content (<code>src</code>, <code>type</code>)</td><td>Still valid</td></tr>
+</table></div>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;script&gt;
+  alert("Hello from JavaScript");
+&lt;/script&gt;
+&lt;script src="app.js" defer&gt;&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript.&lt;/noscript&gt;
+
+&lt;applet code="Clock.class" width="200" height="100"&gt;   &lt;!-- old Java applet --&gt;
+  &lt;param name="color" value="blue"&gt;
+&lt;/applet&gt;
+
+&lt;object data="notes.pdf" type="application/pdf" width="500" height="400"&gt;&lt;/object&gt;</code></pre></div>
+<div class="note old"><span class="nt">Outdated</span><p>Java applets stopped working when browsers dropped plugin support (about 2015 to 2018). Flash was ended by Adobe in December 2020, and ActiveX only ever worked in Internet Explorer. Their modern replacements are JavaScript, <code>&lt;canvas&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;audio&gt;</code> and WebAssembly. Event attributes like <code>onclick="..."</code> are also a form of executable content.</p></div>
+</div>
+
+<div class="topic" id="u2-qa">
+<h3>Likely questions and checklist</h3>
+<details class="qa"><summary>Differentiate between block-level and inline elements.</summary><div class="ans"><p>Block-level elements start on a new line and take the full available width (div, p, h1, ul, table). Inline elements flow within a line and take only the width they need (span, a, b, img).</p></div></details>
+<details class="qa"><summary>What are image maps? Differentiate between client-side and server-side image maps.</summary><div class="ans"><p>An image map is an image with multiple clickable regions linking to different URLs. In client-side maps the browser resolves the click using <code>&lt;map&gt;</code> and <code>&lt;area&gt;</code> (<code>usemap</code>). In server-side maps the click coordinates are sent to a server program (<code>ismap</code>), which is slower and needs a server.</p></div></details>
+<details class="qa"><summary>Explain the attributes of the &lt;area&gt; tag.</summary><div class="ans"><p><code>shape</code> (rect, circle, poly, default), <code>coords</code> (pixel values for that shape), <code>href</code> (destination), <code>alt</code> (alternative text) and <code>target</code>.</p></div></details>
+<details class="qa"><summary>Write the HTML for a table with a merged header cell.</summary><div class="ans"><p>Use <code>&lt;th colspan="2"&gt;</code> inside the first row, then normal <code>&lt;td&gt;</code> cells. See the colspan/rowspan example above.</p></div></details>
+<details class="qa"><summary>Difference between GET and POST methods in a form.</summary><div class="ans"><p>GET appends data to the URL (visible, limited length, bookmarkable), used for searches. POST sends data in the request body (hidden, no practical limit), used for sensitive data and uploads.</p></div></details>
+<details class="qa"><summary>What are frames? Why are they no longer used?</summary><div class="ans"><p>Frames divide the window into independent panes, each with its own HTML file, using <code>&lt;frameset&gt;</code> and <code>&lt;frame&gt;</code>. They break bookmarking and the Back button, harm SEO and accessibility, and were removed in HTML5. <code>&lt;iframe&gt;</code> and CSS layouts replace them.</p></div></details>
+<details class="qa"><summary>What are executable content tags? Give examples.</summary><div class="ans"><p>Tags that embed code or programs that run in the browser: <code>&lt;script&gt;</code>, <code>&lt;applet&gt;</code>, <code>&lt;object&gt;</code> and <code>&lt;embed&gt;</code>.</p></div></details>
+<details class="qa"><summary>Ordered vs unordered vs definition lists.</summary><div class="ans"><p>Ordered (<code>&lt;ol&gt;</code>) numbers items, unordered (<code>&lt;ul&gt;</code>) uses bullets, definition (<code>&lt;dl&gt;</code>) pairs terms (<code>&lt;dt&gt;</code>) with descriptions (<code>&lt;dd&gt;</code>).</p></div></details>
+
+<h4>Revision checklist</h4>
+<ul class="check">
+  <li><label><input type="checkbox" data-k="u2-1"><span>I can write a complete HTML skeleton from memory</span></label></li>
+  <li><label><input type="checkbox" data-k="u2-2"><span>I can explain block vs inline, and physical vs logical tags</span></label></li>
+  <li><label><input type="checkbox" data-k="u2-3"><span>I can write ordered, unordered, definition and nested lists</span></label></li>
+  <li><label><input type="checkbox" data-k="u2-4"><span>I can write every kind of link: external, relative, in-page, mailto, new tab</span></label></li>
+  <li><label><input type="checkbox" data-k="u2-5"><span>I can write a client-side image map with rect, circle and poly</span></label></li>
+  <li><label><input type="checkbox" data-k="u2-6"><span>I can explain server-side maps and using both together</span></label></li>
+  <li><label><input type="checkbox" data-k="u2-7"><span>I can build a table with colspan and rowspan</span></label></li>
+  <li><label><input type="checkbox" data-k="u2-8"><span>I can build a form with all major controls and explain GET vs POST</span></label></li>
+  <li><label><input type="checkbox" data-k="u2-9"><span>I can write a frameset, and explain what replaced it</span></label></li>
+  <li><label><input type="checkbox" data-k="u2-10"><span>I can list the executable content tags and which ones are obsolete</span></label></li>
+</ul>
+</div>
+</section>
+
+<!-- ============ UNIT III ============ -->
+<section class="unit" id="unit3" style="--u:var(--u3)">
+<header class="unit-head">
+  <div class="unit-no">Unit III</div>
+  <h2>JavaScript</h2>
+  <p class="covers">Introduction, client-side and server-side JavaScript, JavaScript objects, security, operators (assignment, comparison, arithmetic, logical, string, special), and statements.</p>
+</header>
+
+
+<div class="topic" id="u3-intro">
+<h3>Introduction to JavaScript</h3>
+<p><mark>JavaScript is a lightweight scripting language that makes web pages interactive.</mark> HTML gives the structure, CSS gives the looks, JavaScript gives the behaviour.</p>
+<ul>
+  <li>Created by <b>Brendan Eich</b> at Netscape in 1995 in about ten days. Names: Mocha, then LiveScript, then JavaScript. It was named to ride on the fame of Java, but <mark>JavaScript is not Java</mark>. They are different languages.</li>
+  <li>Standardised as <b>ECMAScript</b> (ES). "ES6" (2015) added <code>let</code>, <code>const</code>, arrow functions, classes and modules.</li>
+  <li><b>Interpreted:</b> the browser runs it line by line, no compile step. <b>Dynamically typed:</b> a variable can hold any type. <b>Case-sensitive:</b> <code>name</code> and <code>Name</code> are different.</li>
+</ul>
+<h4>Three ways to add JavaScript</h4>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;!-- 1. Inline, inside an attribute --&gt;
+&lt;button onclick="alert('Hi')"&gt;Click&lt;/button&gt;
+
+&lt;!-- 2. Internal, inside a script tag --&gt;
+&lt;script&gt;
+  let name = "Asha";
+  console.log("Hello " + name);
+&lt;/script&gt;
+
+&lt;!-- 3. External file (best practice) --&gt;
+&lt;script src="app.js"&gt;&lt;/script&gt;</code></pre></div>
+<h4>Ways to show output</h4>
+<ul>
+  <li><code>alert("text")</code>: pop-up box. <code>console.log(x)</code>: developer console (best for testing).</li>
+  <li><code>document.write("text")</code>: writes into the page. <code>element.innerHTML = "text"</code>: changes an element's content.</li>
+</ul>
+<h4>Variables and data types</h4>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>var a = 10;        // old style, function scope
+let b = 20;        // block scope, can change
+const PI = 3.14;   // block scope, cannot be reassigned
+
+// Data types
+let n = 42;              // number
+let s = "hello";         // string
+let ok = true;           // boolean
+let u;                   // undefined (declared, no value)
+let e = null;            // null (deliberately empty)
+let o = {x: 1};          // object (arrays and functions are objects too)
+console.log(typeof n);   // "number"</code></pre></div>
+<p>Comments: <code>// single line</code> and <code>/* multi line */</code>. Semicolons end statements (optional, but use them).</p>
+</div>
+
+<div class="topic" id="u3-cs">
+<h3>Client-side and server-side JavaScript</h3>
+<div class="tw"><table class="t">
+<tr><th></th><th>Client-side JavaScript</th><th>Server-side JavaScript</th></tr>
+<tr><td>Runs where</td><td>In the visitor's browser</td><td>On the web server</td></tr>
+<tr><td>Engine</td><td>V8 (Chrome), SpiderMonkey (Firefox), JavaScriptCore (Safari)</td><td>Node.js (uses V8)</td></tr>
+<tr><td>Can access</td><td>The page (DOM), events, cookies, browser window</td><td>Databases, files, network, other servers</td></tr>
+<tr><td>Cannot</td><td>Read the server's files or database directly</td><td>Touch the visitor's page directly</td></tr>
+<tr><td>Typical uses</td><td>Form validation, menus, sliders, animations, updating content without reload</td><td>Login, saving to a database, APIs, generating pages</td></tr>
+<tr><td>Code visible to user?</td><td>Yes (View Source)</td><td>No, only the output is sent</td></tr>
+</table></div>
+<p><b>Client-side</b> code is embedded in or linked from the HTML and runs after the page arrives. <b>Server-side</b> code runs <em>before</em> the page is sent and the visitor only receives its result.</p>
+<div class="note old"><span class="nt">History note for the exam</span><p>Server-side JavaScript first appeared in 1996 as <b>LiveWire</b> from Netscape, running on Netscape Enterprise Server. It didn't catch on. It came back in 2009 as <b>Node.js</b>, which is what people mean today.</p></div>
+</div>
+
+<div class="topic" id="u3-objects">
+<h3>JavaScript objects</h3>
+<p>An object is a <mark>collection of related data (properties) and actions (methods)</mark> bundled under one name. Real world: a student has a name, roll number (properties) and can study or write exams (methods).</p>
+<h4>Three families of objects</h4>
+<ul>
+  <li><b>Core (built-in) objects:</b> part of the language: Array, String, Date, Math, Number, Boolean, Function, Object, RegExp (Unit IV).</li>
+  <li><b>Browser (client-side) objects:</b> given by the browser: <code>window</code>, <code>document</code>, <code>navigator</code>, <code>location</code>, <code>history</code>, <code>screen</code>.</li>
+  <li><b>User-defined objects:</b> ones you make yourself.</li>
+</ul>
+<h4>Creating objects</h4>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>// 1. Object literal (most common)
+let student = {
+  name: "Asha",
+  roll: 101,
+  marks: [82, 75, 90],
+  greet: function () {
+    return "Hi, I am " + this.name;
+  }
+};
+
+// 2. new Object()
+let car = new Object();
+car.brand = "Tata";
+
+// 3. Constructor function (a blueprint)
+function Book(title, price) {
+  this.title = title;
+  this.price = price;
+}
+let b1 = new Book("Web Tech", 350);
+
+// 4. ES6 class
+class Person {
+  constructor(name) { this.name = name; }
+  hello() { return "Hello " + this.name; }
+}
+let p = new Person("Ravi");
+
+// Using objects
+console.log(student.name);       // dot notation      -&gt; "Asha"
+console.log(student["roll"]);    // bracket notation  -&gt; 101
+student.city = "Balrampur";      // add a property
+delete student.roll;             // remove a property
+console.log(student.greet());    // call a method</code></pre></div>
+<p>Loop through an object's properties with <code>for...in</code>:</p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>for (let key in student) {
+  console.log(key + " = " + student[key]);
+}</code></pre></div>
+<div class="note exam"><span class="nt">Exam answer</span>
+<p>A JavaScript object is an unordered collection of properties (name and value pairs) and methods (properties holding functions). Objects can be created using object literals, the <code>new</code> operator with a constructor, or classes.</p></div>
+</div>
+
+<div class="topic" id="u3-security">
+<h3>JavaScript security</h3>
+<p>The browser runs code from websites you don't fully trust, so JavaScript is deliberately kept in a <mark>sandbox</mark>: a restricted area where it can do a limited set of things.</p>
+<ul>
+  <li><b>No access to your files or system.</b> A page cannot read your documents, run programs or install software.</li>
+  <li><b>Same-origin policy:</b> a script from one site (same protocol, domain and port) cannot read data from another site. This stops a bad site from reading your bank's page in another tab. Sharing is allowed only if the other server opts in (CORS).</li>
+  <li><b>Limited windows and pop-ups:</b> scripts can't freely close windows they didn't open, and pop-ups need a user action.</li>
+  <li><b>Cookies</b> are limited per site; <code>HttpOnly</code> cookies can't be read by scripts at all.</li>
+</ul>
+<h4>Threats and defences</h4>
+<div class="tw"><table class="t">
+<tr><th>Threat</th><th>Meaning</th><th>Defence</th></tr>
+<tr><td>Cross-site scripting (XSS)</td><td>Attacker gets their script into your page (through a comment box, URL, etc.)</td><td>Escape or sanitise user input, Content Security Policy, avoid <code>innerHTML</code> with user data</td></tr>
+<tr><td>Cookie / session theft</td><td>A script sends your login cookie to the attacker</td><td><code>HttpOnly</code> and <code>Secure</code> cookies</td></tr>
+<tr><td>Malicious code via <code>eval()</code></td><td>Running text as code</td><td>Never <code>eval</code> user input</td></tr>
+<tr><td>Man-in-the-middle</td><td>Someone alters scripts in transit</td><td>Use HTTPS</td></tr>
+</table></div>
+<div class="note tip"><span class="nt">Remember</span><p>Client-side validation is only for convenience. Users can turn JavaScript off or edit the code, so the <b>server must validate everything again</b>.</p></div>
+<div class="note old"><span class="nt">History note</span><p>Old Netscape versions had "signed scripts" and "data tainting" to grant extra privileges to trusted scripts. Both are gone; the sandbox and same-origin policy replaced them.</p></div>
+</div>
+
+<div class="topic" id="u3-operators">
+<h3>Operators</h3>
+<p>An operator performs an action on values (operands). In <code>5 + 3</code>, the <code>+</code> is the operator and 5 and 3 are operands.</p>
+
+<h4>Assignment operators</h4>
+<div class="tw"><table class="t">
+<tr><th>Operator</th><th>Example</th><th>Same as</th></tr>
+<tr><td><code>=</code></td><td><code>x = 5</code></td><td>put 5 in x</td></tr>
+<tr><td><code>+=</code></td><td><code>x += 3</code></td><td><code>x = x + 3</code></td></tr>
+<tr><td><code>-=</code></td><td><code>x -= 3</code></td><td><code>x = x - 3</code></td></tr>
+<tr><td><code>*=</code></td><td><code>x *= 3</code></td><td><code>x = x * 3</code></td></tr>
+<tr><td><code>/=</code></td><td><code>x /= 3</code></td><td><code>x = x / 3</code></td></tr>
+<tr><td><code>%=</code></td><td><code>x %= 3</code></td><td><code>x = x % 3</code></td></tr>
+<tr><td><code>**=</code></td><td><code>x **= 2</code></td><td><code>x = x ** 2</code></td></tr>
+</table></div>
+
+<h4>Comparison operators</h4>
+<p>They compare two values and give <code>true</code> or <code>false</code>.</p>
+<div class="tw"><table class="t">
+<tr><th>Operator</th><th>Meaning</th><th>Example</th><th>Result</th></tr>
+<tr><td><code>==</code></td><td>Equal value (converts types)</td><td><code>5 == "5"</code></td><td>true</td></tr>
+<tr><td><code>===</code></td><td>Equal value <em>and</em> type (strict)</td><td><code>5 === "5"</code></td><td>false</td></tr>
+<tr><td><code>!=</code></td><td>Not equal (converts types)</td><td><code>5 != "5"</code></td><td>false</td></tr>
+<tr><td><code>!==</code></td><td>Not equal or different type (strict)</td><td><code>5 !== "5"</code></td><td>true</td></tr>
+<tr><td><code>&gt;</code>, <code>&lt;</code></td><td>Greater, less than</td><td><code>7 &gt; 3</code></td><td>true</td></tr>
+<tr><td><code>&gt;=</code>, <code>&lt;=</code></td><td>Greater or equal, less or equal</td><td><code>3 &lt;= 3</code></td><td>true</td></tr>
+</table></div>
+<div class="note tip"><span class="nt">Remember</span><p>Prefer <code>===</code> and <code>!==</code>. Surprises of <code>==</code>: <code>0 == ""</code> is true, <code>null == undefined</code> is true, <code>NaN == NaN</code> is <em>false</em> (use <code>Number.isNaN()</code>). Strings compare letter by letter, so <code>"2" &gt; "12"</code> is true but <code>2 &gt; 12</code> is false.</p></div>
+
+<h4>Arithmetic operators</h4>
+<div class="tw"><table class="t">
+<tr><th>Operator</th><th>Name</th><th>Example</th><th>Result</th></tr>
+<tr><td><code>+</code></td><td>Addition</td><td><code>7 + 3</code></td><td>10</td></tr>
+<tr><td><code>-</code></td><td>Subtraction</td><td><code>7 - 3</code></td><td>4</td></tr>
+<tr><td><code>*</code></td><td>Multiplication</td><td><code>7 * 3</code></td><td>21</td></tr>
+<tr><td><code>/</code></td><td>Division</td><td><code>7 / 2</code></td><td>3.5 (not 3)</td></tr>
+<tr><td><code>%</code></td><td>Modulus</td><td><code>7 % 3</code></td><td>1</td></tr>
+<tr><td><code>**</code></td><td>Exponent</td><td><code>2 ** 3</code></td><td>8</td></tr>
+</table></div>
+
+<h4>% (modulus)</h4>
+<p>Gives the <mark>remainder</mark> after division. <code>10 % 3</code> is 1 because 3 fits three times (9) with 1 left over. Uses: even or odd check (<code>n % 2 === 0</code>), last digit of a number (<code>n % 10</code>), wrapping around (clock: <code>hour % 12</code>). The result takes the sign of the left number: <code>-7 % 3</code> is <code>-1</code>.</p>
+
+<h4>++ (increment) and -- (decrement)</h4>
+<p>Add one or subtract one. Position matters:</p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>let x = 5;
+let y = x++;   // POSTfix: use x first (y = 5), THEN add 1 (x = 6)
+let z = ++x;   // PREfix:  add 1 first (x = 7), THEN use it (z = 7)
+console.log(x, y, z);   // 7 5 7
+
+let a = 5;
+console.log(a--);  // prints 5, then a becomes 4
+console.log(--a);  // a becomes 3, prints 3</code></pre></div>
+<div class="demo"><span class="nt">Try it: postfix or prefix?</span>
+<p>Start with <code>x = 5</code>.</p>
+<button type="button" id="incPost">y = x++</button>
+<button type="button" id="incPre">y = ++x</button>
+<button type="button" id="incReset">Reset</button>
+<div class="out" id="incOut">x = 5</div>
+</div>
+
+<h4>- (unary negation)</h4>
+<p>A minus in front of a single value flips its sign: <code>let x = 5; -x</code> gives <code>-5</code>. The related <b>unary plus</b> converts to a number: <code>+"42"</code> gives <code>42</code>, and <code>-"42"</code> gives <code>-42</code>. It is called "unary" because it has one operand, unlike binary minus in <code>7 - 3</code>.</p>
+
+<h4>Logical operators</h4>
+<div class="tw"><table class="t">
+<tr><th>Operator</th><th>Name</th><th>True when</th></tr>
+<tr><td><code>&amp;&amp;</code></td><td>AND</td><td>both sides are true</td></tr>
+<tr><td><code>||</code></td><td>OR</td><td>at least one side is true</td></tr>
+<tr><td><code>!</code></td><td>NOT</td><td>flips true to false and false to true</td></tr>
+</table></div>
+<p><b>Falsy values</b> (behave as false): <code>false</code>, <code>0</code>, <code>""</code>, <code>null</code>, <code>undefined</code>, <code>NaN</code>. Everything else is <b>truthy</b>, including <code>"0"</code>, <code>[]</code> and <code>{}</code>.</p>
+
+<h4>Short-circuit evaluation</h4>
+<p>Logical operators stop as soon as the answer is known, and <mark>they return one of the actual operands, not just true or false</mark>.</p>
+<ul>
+  <li><code>a &amp;&amp; b</code>: if <code>a</code> is falsy, return <code>a</code> and never look at <code>b</code>. Otherwise return <code>b</code>.</li>
+  <li><code>a || b</code>: if <code>a</code> is truthy, return <code>a</code> and never look at <code>b</code>. Otherwise return <code>b</code>.</li>
+</ul>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>console.log(0 &amp;&amp; "hi");         // 0      (stops at first falsy)
+console.log(5 &amp;&amp; "hi");         // "hi"   (both truthy, returns last)
+console.log("" || "Guest");     // "Guest" (first is falsy, returns second)
+console.log("Asha" || "Guest"); // "Asha"
+
+let username = input || "Guest";    // default value
+user &amp;&amp; user.login();               // only call login if user exists
+false &amp;&amp; alert("never runs");       // right side skipped
+let count = data ?? 0;              // ?? only replaces null or undefined (modern)</code></pre></div>
+
+<h4>String operators</h4>
+<p>The <code>+</code> operator <mark>joins strings</mark> (concatenation), and <code>+=</code> appends. If either side is a string, <code>+</code> joins instead of adds.</p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>"Web" + " " + "Tech";        // "Web Tech"
+let s = "Hello";
+s += " World";                // "Hello World"
+"5" + 2;                      // "52"  (string wins)
+"5" - 2;                      // 3     (minus only works on numbers)
+1 + 2 + "3";                  // "33"  (1+2=3 first, then joined)
+`Hi ${s}, 2+2 = ${2 + 2}`;    // template literal: "Hi Hello World, 2+2 = 4"</code></pre></div>
+<p>Comparison operators also work on strings, comparing character by character in dictionary (Unicode) order: <code>"apple" &lt; "banana"</code> is true. Uppercase letters come before lowercase: <code>"Z" &lt; "a"</code> is true.</p>
+</div>
+
+<div class="topic" id="u3-special">
+<h3>Special operators</h3>
+
+<h4>?: (conditional or ternary operator)</h4>
+<p>The only operator with three operands. A one-line <code>if...else</code> that gives a value: <code>condition ? valueIfTrue : valueIfFalse</code></p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>let age = 20;
+let msg = age &gt;= 18 ? "Adult" : "Minor";       // "Adult"
+let grade = marks &gt;= 75 ? "A" : marks &gt;= 50 ? "B" : "C";   // chained</code></pre></div>
+
+<h4>, (comma operator)</h4>
+<p>Evaluates each expression from left to right and returns the <mark>value of the last one</mark>. Mostly used in <code>for</code> loops to update two variables.</p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>let x = (1, 2, 3);        // x is 3
+for (let i = 0, j = 10; i &lt; j; i++, j--) {
+  console.log(i, j);      // 0 10, 1 9, 2 8 ...
+}</code></pre></div>
+
+<h4>delete</h4>
+<p>Removes a <mark>property from an object</mark>. Returns <code>true</code> when it works.</p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>let car = {brand: "Tata", color: "red"};
+delete car.color;               // car is now {brand: "Tata"}
+let arr = [10, 20, 30];
+delete arr[1];                  // arr is [10, empty, 30], length still 3!</code></pre></div>
+<p>It can't delete variables made with <code>var</code>, <code>let</code> or <code>const</code>. To remove an array element properly use <code>splice()</code>.</p>
+
+<h4>new</h4>
+<p>Creates a <mark>new object from a constructor function or class</mark>: <code>new Date()</code>, <code>new Array(5)</code>, <code>new Book("Web Tech", 350)</code>. It makes an empty object, runs the constructor with <code>this</code> pointing at it, and returns it.</p>
+
+<h4>this</h4>
+<p><code>this</code> refers to <mark>the object that is currently running the code</mark>. What it points to depends on where it is used:</p>
+<div class="tw"><table class="t">
+<tr><th>Where</th><th><code>this</code> is</th></tr>
+<tr><td>Inside an object's method</td><td>That object</td></tr>
+<tr><td>Inside a constructor called with <code>new</code></td><td>The new object being made</td></tr>
+<tr><td>Inside an event handler function</td><td>The element that got the event</td></tr>
+<tr><td>Plain function in the global scope</td><td><code>window</code> (or <code>undefined</code> in strict mode)</td></tr>
+<tr><td>Arrow function</td><td>Whatever <code>this</code> was outside it</td></tr>
+</table></div>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;button onclick="this.style.background='gold'"&gt;Click me&lt;/button&gt;</code></pre></div>
+
+<h4>void</h4>
+<p>Evaluates an expression and <mark>throws away the result, returning <code>undefined</code></mark>. Its famous use is a link that runs JavaScript without navigating anywhere:</p>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;a href="javascript:void(0)" onclick="openMenu()"&gt;Menu&lt;/a&gt;</code></pre></div>
+
+<h4>Other operators worth knowing</h4>
+<ul>
+  <li><code>typeof x</code> gives the type as text: <code>typeof 5</code> is <code>"number"</code>. Quirk: <code>typeof null</code> is <code>"object"</code> (an old bug); use <code>Array.isArray(x)</code> to test arrays.</li>
+  <li><code>a instanceof B</code>: is <code>a</code> made from <code>B</code>? <code>[] instanceof Array</code> is true.</li>
+  <li><code>"key" in obj</code>: does the object have this property?</li>
+</ul>
+</div>
+
+<div class="topic" id="u3-statements">
+<h3>Statements</h3>
+<p>A statement is one instruction. A program is a list of statements. The main ones, with small examples:</p>
+
+<h4>Comment</h4>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>// single-line comment
+/* multi-line
+   comment */</code></pre></div>
+
+<h4>if...else and else if</h4>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>if (marks &gt;= 75) {
+  console.log("Distinction");
+} else if (marks &gt;= 40) {
+  console.log("Pass");
+} else {
+  console.log("Fail");
+}</code></pre></div>
+
+<h4>switch</h4>
+<p>Choose one branch by matching a value. <b>Always add <code>break</code></b> or execution falls through into the next case.</p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>switch (day) {
+  case 0: console.log("Sunday"); break;
+  case 6: console.log("Saturday"); break;
+  default: console.log("Weekday");
+}</code></pre></div>
+
+<h4>for, while and do...while</h4>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>for (let i = 1; i &lt;= 5; i++) {     // init; condition; update
+  console.log(i);
+}
+
+let n = 1;
+while (n &lt;= 5) {                   // checks BEFORE running
+  console.log(n);
+  n++;
+}
+
+let m = 10;
+do {                               // runs ONCE first, checks AFTER
+  console.log(m);
+  m++;
+} while (m &lt;= 5);                  // prints 10 even though condition is false</code></pre></div>
+
+<h4>for...in</h4>
+<p>Goes through the <b>property names (keys)</b> of an object. For values of arrays and strings use <code>for...of</code>.</p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>let person = {name: "Asha", age: 20};
+for (let key in person) {
+  console.log(key, person[key]);          // name Asha, then age 20
+}
+for (let item of [10, 20, 30]) {
+  console.log(item);                      // 10, 20, 30 (values)
+}</code></pre></div>
+
+<h4>break and continue</h4>
+<ul>
+  <li><code>break</code> leaves the loop (or switch) completely.</li>
+  <li><code>continue</code> skips the rest of this round and moves to the next round.</li>
+</ul>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>for (let i = 1; i &lt;= 10; i++) {
+  if (i === 3) continue;    // skip 3
+  if (i === 6) break;       // stop at 6
+  console.log(i);           // 1 2 4 5
+}</code></pre></div>
+
+<h4>function and return</h4>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>function add(a, b) {              // declaration
+  return a + b;                   // sends a value back
+}
+const mul = function (a, b) { return a * b; };   // expression
+const sub = (a, b) =&gt; a - b;                     // arrow function
+function greet(name = "friend") {                // default parameter
+  return "Hello " + name;
+}
+console.log(add(2, 3), greet());  // 5 "Hello friend"</code></pre></div>
+
+<h4>delete</h4>
+<p>As an operator/statement it removes an object property (see special operators above).</p>
+
+<h4>try...catch...finally and throw</h4>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>try {
+  let r = riskyFunction();          // if this fails ...
+} catch (err) {
+  console.log("Error: " + err.message);   // ... handle it here
+} finally {
+  console.log("Always runs");
+}
+throw new Error("Something went wrong");  // raise your own error</code></pre></div>
+
+<h4>export and import</h4>
+<p>Share code between files (ES modules). A file <em>exports</em> what others may use; another file <em>imports</em> it.</p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>// math.js
+export function square(n) { return n * n; }
+export const PI = 3.14;
+
+// main.js
+import { square, PI } from "./math.js";
+console.log(square(4));      // 16</code></pre></div>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;script type="module" src="main.js"&gt;&lt;/script&gt;</code></pre></div>
+<div class="note old"><span class="nt">History note</span><p>In Netscape's old JavaScript 1.2, <code>export</code> and <code>import</code> were used with signed scripts to share functions between scripts. In modern JavaScript (ES6) they are the module system shown above.</p></div>
+
+<h4>Others in the "etc."</h4>
+<p><code>var</code>/<code>let</code>/<code>const</code> (declare variables), <code>label</code> (name a loop for <code>break outer;</code>), <code>with</code> (obsolete, avoid), <code>debugger</code> (pause in dev tools).</p>
+</div>
+
+<div class="topic" id="u3-qa">
+<h3>Likely questions and checklist</h3>
+<details class="qa"><summary>What is JavaScript? Differentiate between JavaScript and Java.</summary><div class="ans"><p>JavaScript is an interpreted, dynamically typed scripting language for web interactivity. Java is a compiled, statically typed, general-purpose object-oriented language. They are unrelated apart from the name. JavaScript runs in browsers and on Node.js; Java runs on the JVM.</p></div></details>
+<details class="qa"><summary>Differentiate between client-side and server-side JavaScript.</summary><div class="ans"><p>Client-side runs in the browser and manipulates the page and events. Server-side (Node.js, earlier LiveWire) runs on the server and works with databases and files, sending only the result to the client.</p></div></details>
+<details class="qa"><summary>Difference between == and ===.</summary><div class="ans"><p><code>==</code> compares values after converting types, so <code>5 == "5"</code> is true. <code>===</code> compares value and type without conversion, so <code>5 === "5"</code> is false.</p></div></details>
+<details class="qa"><summary>Explain increment and decrement operators with prefix and postfix.</summary><div class="ans"><p><code>++</code> adds one and <code>--</code> subtracts one. Postfix (<code>x++</code>) returns the old value then changes x. Prefix (<code>++x</code>) changes x then returns the new value.</p></div></details>
+<details class="qa"><summary>What is short-circuit evaluation?</summary><div class="ans"><p>Logical operators stop evaluating as soon as the result is known. <code>&amp;&amp;</code> stops at the first falsy operand, <code>||</code> at the first truthy one, and they return that operand.</p></div></details>
+<details class="qa"><summary>Explain any four special operators.</summary><div class="ans"><p>Conditional <code>?:</code> (one-line if/else), comma <code>,</code> (evaluates several expressions, returns the last), <code>delete</code> (removes an object property), <code>new</code> (creates an object from a constructor), <code>this</code> (current object), <code>void</code> (returns undefined).</p></div></details>
+<details class="qa"><summary>Difference between while and do...while, and between break and continue.</summary><div class="ans"><p><code>while</code> tests the condition first and may never run. <code>do...while</code> runs the body once before testing. <code>break</code> exits the loop; <code>continue</code> skips to the next iteration.</p></div></details>
+<details class="qa"><summary>What is the output of: let x = 5; let y = x++ + ++x;</summary><div class="ans"><p>x++ gives 5 (x becomes 6), then ++x makes x 7 and gives 7. So y = 5 + 7 = 12 and x = 7.</p></div></details>
+
+<h4>Revision checklist</h4>
+<ul class="check">
+  <li><label><input type="checkbox" data-k="u3-1"><span>I can explain what JavaScript is and how it differs from Java</span></label></li>
+  <li><label><input type="checkbox" data-k="u3-2"><span>I can compare client-side and server-side JavaScript</span></label></li>
+  <li><label><input type="checkbox" data-k="u3-3"><span>I can create objects in at least three ways</span></label></li>
+  <li><label><input type="checkbox" data-k="u3-4"><span>I can explain the sandbox, same-origin policy and XSS</span></label></li>
+  <li><label><input type="checkbox" data-k="u3-5"><span>I can explain == vs === and predict comparison results</span></label></li>
+  <li><label><input type="checkbox" data-k="u3-6"><span>I can predict outputs with %, ++ and --</span></label></li>
+  <li><label><input type="checkbox" data-k="u3-7"><span>I can explain short-circuit evaluation with an example</span></label></li>
+  <li><label><input type="checkbox" data-k="u3-8"><span>I can explain ?:, comma, delete, new, this and void</span></label></li>
+  <li><label><input type="checkbox" data-k="u3-9"><span>I can write every loop, plus break and continue</span></label></li>
+  <li><label><input type="checkbox" data-k="u3-10"><span>I can write functions, try/catch, and export/import</span></label></li>
+</ul>
+</div>
+</section>
+
+<!-- ============ UNIT IV ============ -->
+<section class="unit" id="unit4" style="--u:var(--u4)">
+<header class="unit-head">
+  <div class="unit-no">Unit IV</div>
+  <h2>Core JavaScript, document objects and events</h2>
+  <p class="covers">Properties and methods of Array, Boolean, Date, Function, Math, Number, Object, String, RegExp; the document object and its related objects (Link, Area, Anchor, Image, Applet, Layer); events and event handlers.</p>
+</header>
+
+
+<div class="topic" id="u4-array">
+<h3>Array</h3>
+<p>An ordered list of values, indexed from 0. It can hold mixed types.</p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>let fruits = ["apple", "banana", "mango"];
+let nums = new Array(10, 20, 30);
+console.log(fruits[0]);        // "apple"  (first item is index 0)
+console.log(fruits.length);    // 3</code></pre></div>
+<p><b>Property:</b> <code>length</code> (number of elements).</p>
+<div class="tw"><table class="t">
+<tr><th>Method</th><th>Does</th><th>Example (a = [1,2,3])</th></tr>
+<tr><td><code>push(x)</code></td><td>Add to the end, returns new length</td><td><code>a.push(4)</code> gives [1,2,3,4]</td></tr>
+<tr><td><code>pop()</code></td><td>Remove and return the last</td><td>returns 3, a is [1,2]</td></tr>
+<tr><td><code>unshift(x)</code></td><td>Add to the start</td><td><code>a.unshift(0)</code> gives [0,1,2,3]</td></tr>
+<tr><td><code>shift()</code></td><td>Remove and return the first</td><td>returns 1, a is [2,3]</td></tr>
+<tr><td><code>splice(i, n, ...items)</code></td><td>Remove n items at index i, optionally insert</td><td><code>a.splice(1,1)</code> gives [1,3]</td></tr>
+<tr><td><code>slice(start, end)</code></td><td>Copy a part (end not included), original unchanged</td><td><code>a.slice(0,2)</code> gives [1,2]</td></tr>
+<tr><td><code>concat(b)</code></td><td>Join arrays into a new one</td><td><code>a.concat([4,5])</code></td></tr>
+<tr><td><code>join(sep)</code></td><td>Make a string</td><td><code>a.join("-")</code> gives "1-2-3"</td></tr>
+<tr><td><code>reverse()</code></td><td>Reverse in place</td><td>[3,2,1]</td></tr>
+<tr><td><code>sort()</code></td><td>Sort in place (as text by default!)</td><td>see note below</td></tr>
+<tr><td><code>indexOf(x)</code>, <code>includes(x)</code></td><td>Position of x (-1 if none), does it contain x</td><td><code>a.indexOf(2)</code> gives 1</td></tr>
+<tr><td><code>forEach</code>, <code>map</code>, <code>filter</code>, <code>reduce</code></td><td>Loop, transform, select, combine</td><td><code>a.map(n =&gt; n*2)</code> gives [2,4,6]</td></tr>
+</table></div>
+<div class="note tip"><span class="nt">Remember</span><p><code>sort()</code> compares as strings: <code>[10, 9, 1].sort()</code> gives <code>[1, 10, 9]</code>. For numbers use <code>sort((a, b) =&gt; a - b)</code>. Also: <code>push/pop/shift/unshift/splice/reverse/sort</code> <em>change</em> the array; <code>slice/concat/join/map/filter</code> give a <em>new</em> result.</p></div>
+</div>
+
+<div class="topic" id="u4-boolean">
+<h3>Boolean</h3>
+<p>Holds <code>true</code> or <code>false</code>. Created by a literal, or by <code>Boolean(value)</code>, which converts any value using the truthy/falsy rule.</p>
+<div class="tw"><table class="t">
+<tr><th>Member</th><th>Does</th></tr>
+<tr><td><code>toString()</code></td><td>Returns "true" or "false"</td></tr>
+<tr><td><code>valueOf()</code></td><td>Returns the primitive value</td></tr>
+<tr><td><code>constructor</code>, <code>prototype</code></td><td>Inherited from Object; used to add your own properties</td></tr>
+</table></div>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>Boolean(10);        // true
+Boolean("");        // false
+Boolean("false");   // true  (any non-empty string is truthy!)
+let b = new Boolean(false);
+if (b) console.log("runs!");   // an OBJECT is always truthy, even Boolean(false)</code></pre></div>
+<div class="note tip"><span class="nt">Remember</span><p>Never use <code>new Boolean()</code>. Use plain <code>true</code>/<code>false</code>, or <code>!!value</code> to convert.</p></div>
+</div>
+
+<div class="topic" id="u4-date">
+<h3>Date</h3>
+<p>Represents a moment in time, stored as milliseconds since <b>1 January 1970 UTC</b>.</p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>let now = new Date();                       // current date and time
+let d1 = new Date("2026-09-19");            // from a string
+let d2 = new Date(2026, 8, 19, 10, 30);     // year, MONTH (0-11), day, hour, minute
+let d3 = new Date(0);                       // 1 Jan 1970</code></pre></div>
+<div class="tw"><table class="t">
+<tr><th>Get methods</th><th>Returns</th></tr>
+<tr><td><code>getFullYear()</code></td><td>4-digit year (<code>getYear()</code> is obsolete)</td></tr>
+<tr><td><code>getMonth()</code></td><td>0 to 11 (<b>0 = January</b>)</td></tr>
+<tr><td><code>getDate()</code></td><td>Day of the month, 1 to 31</td></tr>
+<tr><td><code>getDay()</code></td><td>Day of the week, 0 to 6 (<b>0 = Sunday</b>)</td></tr>
+<tr><td><code>getHours()</code>, <code>getMinutes()</code>, <code>getSeconds()</code>, <code>getMilliseconds()</code></td><td>Time parts</td></tr>
+<tr><td><code>getTime()</code></td><td>Milliseconds since 1970</td></tr>
+</table></div>
+<p><b>Set methods</b> mirror them: <code>setFullYear()</code>, <code>setMonth()</code>, <code>setDate()</code>, <code>setHours()</code>, <code>setMinutes()</code>, <code>setSeconds()</code>, <code>setTime()</code>. <b>Conversion:</b> <code>toString()</code>, <code>toDateString()</code>, <code>toTimeString()</code>, <code>toLocaleDateString()</code>, <code>toISOString()</code>. <b>Static:</b> <code>Date.now()</code>, <code>Date.parse()</code>.</p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>// Show today's date
+let t = new Date();
+let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+console.log(t.getDate() + " " + months[t.getMonth()] + " " + t.getFullYear());
+
+// Days between two dates
+let a = new Date("2026-01-01"), b = new Date("2026-12-25");
+let days = Math.round((b - a) / (1000 * 60 * 60 * 24));   // 358</code></pre></div>
+<div class="note tip"><span class="nt">Remember</span><p>The two classic traps: <b>months start at 0</b> and <b>days of the week start at Sunday = 0</b>.</p></div>
+</div>
+
+<div class="topic" id="u4-function">
+<h3>Function</h3>
+<p>In JavaScript, functions are <mark>objects</mark>, so they have properties and methods too. They can be stored in variables, passed to other functions (callbacks) and returned.</p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>function sum(a, b) { return a + b; }
+let sum2 = new Function("a", "b", "return a + b");   // Function constructor (avoid in real code)
+console.log(sum.length);    // 2 (number of declared parameters)
+console.log(sum.name);      // "sum"</code></pre></div>
+<div class="tw"><table class="t">
+<tr><th>Member</th><th>Does</th></tr>
+<tr><td><code>length</code></td><td>Number of declared parameters</td></tr>
+<tr><td><code>name</code></td><td>The function's name</td></tr>
+<tr><td><code>arguments</code></td><td>Array-like object inside a function holding all values passed in</td></tr>
+<tr><td><code>call(thisArg, a, b)</code></td><td>Call the function with a chosen <code>this</code>, arguments listed one by one</td></tr>
+<tr><td><code>apply(thisArg, [a, b])</code></td><td>Same, but arguments come as an array</td></tr>
+<tr><td><code>bind(thisArg)</code></td><td>Returns a <em>new</em> function with <code>this</code> fixed</td></tr>
+<tr><td><code>toString()</code></td><td>Returns the function's source code as text</td></tr>
+</table></div>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>function total() {                    // works with any number of arguments
+  let s = 0;
+  for (let i = 0; i &lt; arguments.length; i++) s += arguments[i];
+  return s;
+}
+console.log(total(1, 2, 3, 4));       // 10
+
+function hello() { return "Hi " + this.name; }
+console.log(hello.call({name: "Asha"}));      // "Hi Asha"</code></pre></div>
+</div>
+
+<div class="topic" id="u4-math">
+<h3>Math</h3>
+<p>A built-in object with maths constants and functions. You <b>don't create it with <code>new</code></b>; you just call <code>Math.something()</code>.</p>
+<p><b>Properties:</b> <code>Math.PI</code> (3.14159...), <code>Math.E</code> (2.718...), <code>Math.LN2</code>, <code>Math.LN10</code>, <code>Math.LOG2E</code>, <code>Math.LOG10E</code>, <code>Math.SQRT2</code>, <code>Math.SQRT1_2</code>.</p>
+<div class="tw"><table class="t">
+<tr><th>Method</th><th>Does</th><th>Example</th></tr>
+<tr><td><code>abs(x)</code></td><td>Absolute value</td><td><code>Math.abs(-5)</code> = 5</td></tr>
+<tr><td><code>ceil(x)</code></td><td>Round <b>up</b></td><td><code>Math.ceil(4.1)</code> = 5</td></tr>
+<tr><td><code>floor(x)</code></td><td>Round <b>down</b></td><td><code>Math.floor(4.9)</code> = 4</td></tr>
+<tr><td><code>round(x)</code></td><td>Round to nearest</td><td><code>Math.round(4.5)</code> = 5</td></tr>
+<tr><td><code>trunc(x)</code></td><td>Drop the decimals</td><td><code>Math.trunc(-4.7)</code> = -4</td></tr>
+<tr><td><code>sqrt(x)</code>, <code>cbrt(x)</code></td><td>Square root, cube root</td><td><code>Math.sqrt(16)</code> = 4</td></tr>
+<tr><td><code>pow(x, y)</code></td><td>x to the power y</td><td><code>Math.pow(2, 3)</code> = 8</td></tr>
+<tr><td><code>max(...)</code>, <code>min(...)</code></td><td>Largest, smallest</td><td><code>Math.max(3, 9, 2)</code> = 9</td></tr>
+<tr><td><code>random()</code></td><td>Random decimal from 0 up to (not including) 1</td><td><code>0.7351...</code></td></tr>
+<tr><td><code>sin</code>, <code>cos</code>, <code>tan</code></td><td>Trigonometry (angle in radians)</td><td><code>Math.sin(Math.PI / 2)</code> = 1</td></tr>
+<tr><td><code>log(x)</code>, <code>exp(x)</code></td><td>Natural log, e to the power x</td><td></td></tr>
+</table></div>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>// Random whole number from 1 to 6 (a dice)
+let dice = Math.floor(Math.random() * 6) + 1;
+
+// General: random integer between min and max (both included)
+function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// Area of a circle
+let r = 7;
+let area = Math.PI * r * r;   // or Math.PI * Math.pow(r, 2)</code></pre></div>
+</div>
+
+<div class="topic" id="u4-number">
+<h3>Number</h3>
+<p>All numbers in JavaScript (whole and decimal) are the same type: 64-bit floating point.</p>
+<div class="tw"><table class="t">
+<tr><th>Property</th><th>Value</th></tr>
+<tr><td><code>Number.MAX_VALUE</code></td><td>Largest number, about 1.79e308</td></tr>
+<tr><td><code>Number.MIN_VALUE</code></td><td>Smallest <em>positive</em> number, about 5e-324</td></tr>
+<tr><td><code>Number.POSITIVE_INFINITY</code></td><td><code>Infinity</code></td></tr>
+<tr><td><code>Number.NEGATIVE_INFINITY</code></td><td><code>-Infinity</code></td></tr>
+<tr><td><code>Number.NaN</code></td><td>"Not a Number", the result of a failed calculation</td></tr>
+<tr><td><code>Number.MAX_SAFE_INTEGER</code></td><td>9007199254740991 (2<sup>53</sup> - 1)</td></tr>
+</table></div>
+<div class="tw"><table class="t">
+<tr><th>Method</th><th>Does</th><th>Example</th></tr>
+<tr><td><code>toFixed(n)</code></td><td>Text with n decimals</td><td><code>(3.14159).toFixed(2)</code> = "3.14"</td></tr>
+<tr><td><code>toPrecision(n)</code></td><td>n significant digits</td><td><code>(123.456).toPrecision(4)</code> = "123.5"</td></tr>
+<tr><td><code>toExponential(n)</code></td><td>Scientific notation text</td><td><code>(12345).toExponential(2)</code> = "1.23e+4"</td></tr>
+<tr><td><code>toString(base)</code></td><td>Text, optionally in another base</td><td><code>(255).toString(2)</code> = "11111111"</td></tr>
+<tr><td><code>valueOf()</code></td><td>The primitive number</td><td></td></tr>
+<tr><td><code>Number.isInteger(x)</code></td><td>Is it a whole number?</td><td><code>Number.isInteger(5.0)</code> = true</td></tr>
+<tr><td><code>isNaN(x)</code>, <code>Number.isNaN(x)</code></td><td>Is it NaN?</td><td><code>isNaN("abc")</code> = true</td></tr>
+<tr><td><code>isFinite(x)</code></td><td>Not Infinity or NaN?</td><td></td></tr>
+<tr><td><code>parseInt(s)</code>, <code>parseFloat(s)</code></td><td>Read a number from text</td><td><code>parseInt("42px")</code> = 42</td></tr>
+<tr><td><code>Number(s)</code></td><td>Convert the whole text</td><td><code>Number("42px")</code> = NaN</td></tr>
+</table></div>
+<div class="note tip"><span class="nt">Remember</span><p><code>0.1 + 0.2</code> is <code>0.30000000000000004</code>, not 0.3. This is how computers store decimals and it happens in every language. Use <code>toFixed()</code> to display prices. Also <code>1/0</code> is <code>Infinity</code>, and <code>"abc" * 2</code> is <code>NaN</code>.</p></div>
+</div>
+
+<div class="topic" id="u4-object">
+<h3>Object</h3>
+<p>The parent of every other object. Everything in JavaScript (except plain primitive values) inherits from <code>Object</code>.</p>
+<div class="tw"><table class="t">
+<tr><th>Member</th><th>Does</th></tr>
+<tr><td><code>constructor</code></td><td>The function that created the object</td></tr>
+<tr><td><code>prototype</code></td><td>Where shared properties and methods live (used to add methods to all objects of a type)</td></tr>
+<tr><td><code>hasOwnProperty("k")</code></td><td>Does the object itself (not its parent) have property k?</td></tr>
+<tr><td><code>toString()</code></td><td>Text form; usually <code>"[object Object]"</code></td></tr>
+<tr><td><code>valueOf()</code></td><td>Primitive value of the object</td></tr>
+<tr><td><code>Object.keys(o)</code>, <code>Object.values(o)</code>, <code>Object.entries(o)</code></td><td>Arrays of the names, values, or [name, value] pairs</td></tr>
+<tr><td><code>Object.assign(target, src)</code></td><td>Copy properties into another object</td></tr>
+<tr><td><code>Object.freeze(o)</code></td><td>Make the object unchangeable</td></tr>
+</table></div>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>let s = {name: "Asha", age: 20};
+console.log(Object.keys(s));            // ["name", "age"]
+console.log(Object.values(s));          // ["Asha", 20]
+console.log(s.hasOwnProperty("age"));   // true
+console.log(s.toString());              // "[object Object]"
+
+// prototype: add a method for ALL Book objects
+function Book(t) { this.title = t; }
+Book.prototype.show = function () { return "Book: " + this.title; };
+console.log(new Book("Web Tech").show());</code></pre></div>
+</div>
+
+<div class="topic" id="u4-string">
+<h3>String</h3>
+<p>A sequence of characters in quotes. Strings are <mark>immutable</mark>: methods never change the original, they return a new string.</p>
+<p><b>Property:</b> <code>length</code>.</p>
+<div class="tw"><table class="t">
+<tr><th>Method</th><th>Does</th><th>Example (s = "Web Tech")</th></tr>
+<tr><td><code>charAt(i)</code></td><td>Character at index i (also <code>s[i]</code>)</td><td><code>s.charAt(0)</code> = "W"</td></tr>
+<tr><td><code>charCodeAt(i)</code></td><td>Unicode number of that character</td><td><code>s.charCodeAt(0)</code> = 87</td></tr>
+<tr><td><code>indexOf(x)</code></td><td>First position of x, or -1</td><td><code>s.indexOf("T")</code> = 4</td></tr>
+<tr><td><code>lastIndexOf(x)</code></td><td>Last position of x</td><td></td></tr>
+<tr><td><code>includes(x)</code>, <code>startsWith(x)</code>, <code>endsWith(x)</code></td><td>true or false checks</td><td><code>s.includes("Tech")</code> = true</td></tr>
+<tr><td><code>slice(start, end)</code></td><td>Part of the string (negative allowed)</td><td><code>s.slice(0, 3)</code> = "Web"</td></tr>
+<tr><td><code>substring(start, end)</code></td><td>Like slice, no negatives</td><td><code>s.substring(4)</code> = "Tech"</td></tr>
+<tr><td><code>substr(start, length)</code></td><td>Part by length (deprecated)</td><td></td></tr>
+<tr><td><code>toUpperCase()</code>, <code>toLowerCase()</code></td><td>Change case</td><td><code>s.toUpperCase()</code> = "WEB TECH"</td></tr>
+<tr><td><code>trim()</code></td><td>Remove spaces at both ends</td><td><code>"  hi ".trim()</code> = "hi"</td></tr>
+<tr><td><code>split(sep)</code></td><td>Break into an array</td><td><code>s.split(" ")</code> = ["Web","Tech"]</td></tr>
+<tr><td><code>replace(a, b)</code>, <code>replaceAll(a, b)</code></td><td>Replace first match / all matches</td><td><code>s.replace("Web","HTML")</code></td></tr>
+<tr><td><code>concat(x)</code></td><td>Join strings (same as +)</td><td></td></tr>
+<tr><td><code>repeat(n)</code>, <code>padStart(n, c)</code></td><td>Repeat; pad to length</td><td><code>"7".padStart(3,"0")</code> = "007"</td></tr>
+<tr><td><code>match()</code>, <code>search()</code></td><td>Find using a regular expression</td><td></td></tr>
+</table></div>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>// Reverse a string
+let rev = "hello".split("").reverse().join("");      // "olleh"
+
+// Palindrome check
+let word = "madam";
+console.log(word === word.split("").reverse().join(""));   // true
+
+// Count vowels
+let count = 0;
+for (let ch of "javascript") if ("aeiou".includes(ch)) count++;   // 3</code></pre></div>
+<div class="note old"><span class="nt">Outdated</span><p>Old books list HTML-wrapper methods such as <code>s.bold()</code>, <code>s.italics()</code>, <code>s.link(url)</code>, <code>s.fontcolor("red")</code>. They are deprecated. Use DOM methods and CSS.</p></div>
+</div>
+
+<div class="topic" id="u4-regexp">
+<h3>RegExp (regular expressions)</h3>
+<p>A regular expression is a <mark>pattern that describes text</mark>. It is used to check whether text has a certain shape (validation), find things, or replace things.</p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>let re1 = /web/i;                       // literal: pattern between slashes, flags after
+let re2 = new RegExp("web", "i");       // constructor: same thing
+re1.test("I love Web Tech");            // true</code></pre></div>
+<p><b>Flags:</b> <code>g</code> (global: find all matches), <code>i</code> (ignore case), <code>m</code> (multi-line). <b>Properties:</b> <code>source</code>, <code>flags</code>, <code>global</code>, <code>ignoreCase</code>, <code>multiline</code>, <code>lastIndex</code>. <b>Methods:</b> <code>test(str)</code> gives true/false; <code>exec(str)</code> gives details of the match (or null). String methods that take regexes: <code>match</code>, <code>search</code>, <code>replace</code>, <code>split</code>.</p>
+<div class="tw"><table class="t">
+<tr><th>Pattern</th><th>Matches</th></tr>
+<tr><td><code>.</code></td><td>Any one character</td></tr>
+<tr><td><code>\d</code> / <code>\D</code></td><td>A digit / a non-digit</td></tr>
+<tr><td><code>\w</code> / <code>\W</code></td><td>Letter, digit or underscore / anything else</td></tr>
+<tr><td><code>\s</code> / <code>\S</code></td><td>Whitespace / non-whitespace</td></tr>
+<tr><td><code>[abc]</code>, <code>[a-z]</code>, <code>[^abc]</code></td><td>One of a, b, c; one lowercase letter; anything except a, b, c</td></tr>
+<tr><td><code>^</code> and <code>$</code></td><td>Start and end of the text</td></tr>
+<tr><td><code>*</code>, <code>+</code>, <code>?</code></td><td>0 or more, 1 or more, 0 or 1</td></tr>
+<tr><td><code>{n}</code>, <code>{n,m}</code></td><td>Exactly n, between n and m times</td></tr>
+<tr><td><code>(a|b)</code></td><td>a or b (grouping)</td></tr>
+<tr><td><code>\b</code></td><td>Word boundary</td></tr>
+</table></div>
+<h4>Patterns students will actually use</h4>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>/^\d{6}$/                          // 6-digit PIN code
+/^[6-9]\d{9}$/                     // Indian mobile number (10 digits starting 6-9)
+/^[A-Za-z ]+$/                     // letters and spaces only (a name)
+/^[^\s@]+@[^\s@]+\.[^\s@]+$/       // simple e-mail shape
+
+"a1b22c333".match(/\d+/g);         // ["1", "22", "333"]
+"2026-09-19".replace(/-/g, "/");   // "2026/09/19"</code></pre></div>
+<div class="demo"><span class="nt">Try it: regex tester</span>
+<p>Type a pattern (without slashes) and some text.</p>
+<p><label>Pattern <input type="text" id="reP" value="^[6-9]\d{9}$" autocomplete="off"></label></p>
+<p><label>Flags <input type="text" id="reF" value="" size="4" autocomplete="off"></label></p>
+<p><label>Text <input type="text" id="reT" value="9876543210" autocomplete="off"></label></p>
+<div class="out" id="reOut"></div>
+</div>
+</div>
+
+<div class="topic" id="u4-dom">
+<h3>Document and its associated objects</h3>
+<p>When a browser loads a page it builds a tree of objects called the <mark>DOM (Document Object Model)</mark>. JavaScript uses it to read and change the page. At the top is <code>window</code>, and the page itself is <code>window.document</code>.</p>
+<div class="code"><div class="code-bar"><span>the object hierarchy</span></div><pre>window
+ ├─ document
+ │    ├─ forms[]      (form objects, holding text boxes, buttons ...)
+ │    ├─ images[]     (Image objects)
+ │    ├─ links[]      (Link and Area objects)
+ │    ├─ anchors[]    (Anchor objects)
+ │    └─ applets[]    (Applet objects, obsolete)
+ ├─ location   (the URL)
+ ├─ history    (pages visited)
+ ├─ navigator  (browser information)
+ └─ screen     (monitor size)</pre></div>
+
+<h4>document object</h4>
+<div class="tw"><table class="t">
+<tr><th>Property</th><th>Holds</th></tr>
+<tr><td><code>title</code></td><td>Page title</td></tr>
+<tr><td><code>URL</code>, <code>domain</code>, <code>referrer</code></td><td>Address, domain, the page you came from</td></tr>
+<tr><td><code>lastModified</code></td><td>Date the page was last changed</td></tr>
+<tr><td><code>cookie</code></td><td>Cookies for this page</td></tr>
+<tr><td><code>body</code></td><td>The body element</td></tr>
+<tr><td><code>forms</code>, <code>images</code>, <code>links</code>, <code>anchors</code>, <code>applets</code></td><td>Collections of those elements</td></tr>
+<tr><td><code>bgColor</code>, <code>fgColor</code>, <code>linkColor</code></td><td>Old colour properties (use CSS)</td></tr>
+</table></div>
+<div class="tw"><table class="t">
+<tr><th>Method</th><th>Does</th></tr>
+<tr><td><code>write()</code>, <code>writeln()</code></td><td>Write text or HTML into the page. Calling it after the page has loaded <b>erases the whole page</b></td></tr>
+<tr><td><code>getElementById("id")</code></td><td>One element by its id</td></tr>
+<tr><td><code>getElementsByTagName("p")</code>, <code>getElementsByClassName("c")</code>, <code>getElementsByName("n")</code></td><td>A collection of elements</td></tr>
+<tr><td><code>querySelector("css")</code>, <code>querySelectorAll("css")</code></td><td>First match / all matches for a CSS selector</td></tr>
+<tr><td><code>createElement("div")</code>, <code>createTextNode()</code></td><td>Make new elements or text</td></tr>
+<tr><td><code>open()</code>, <code>close()</code></td><td>Old way of writing a fresh document</td></tr>
+</table></div>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>document.title = "New title";
+let h = document.getElementById("heading");
+h.textContent = "Changed by JavaScript";
+h.style.color = "crimson";
+
+let p = document.createElement("p");        // make a new element
+p.textContent = "I was added by script";
+document.body.appendChild(p);               // put it in the page</code></pre></div>
+
+<h4>Link object</h4>
+<p>Represents a hyperlink (<code>&lt;a href&gt;</code>). All are listed in <code>document.links</code> (which also includes <code>&lt;area&gt;</code> tags). Properties: <code>href</code> (full URL), <code>protocol</code>, <code>hostname</code>, <code>port</code>, <code>pathname</code>, <code>search</code>, <code>hash</code>, <code>target</code>, <code>text</code>. Events: <code>onclick</code>, <code>onmouseover</code>, <code>onmouseout</code>.</p>
+<div class="code"><div class="code-bar"><span>js</span><button type="button">Copy</button></div><pre><code>for (let i = 0; i &lt; document.links.length; i++) {
+  console.log(document.links[i].href);
+}</code></pre></div>
+
+<h4>Area object</h4>
+<p>Represents one clickable region of an image map (<code>&lt;area&gt;</code> from Unit II). Properties: <code>shape</code>, <code>coords</code>, <code>href</code>, <code>alt</code>, <code>target</code>. Events: <code>onclick</code>, <code>onmouseover</code>, <code>onmouseout</code>. Because it has an <code>href</code>, it also appears in <code>document.links</code>.</p>
+
+<h4>Anchor object</h4>
+<p>Represents a <b>named anchor</b>, <code>&lt;a name="top"&gt;</code>, the target that in-page links jump to. Listed in <code>document.anchors</code>. Properties: <code>name</code>, <code>text</code>. A link with <code>href</code> is a Link; an anchor with <code>name</code> is an Anchor; one tag can be both. Today most people use <code>id</code> instead of <code>name</code>.</p>
+
+<h4>Image object</h4>
+<p>Represents an <code>&lt;img&gt;</code>. Listed in <code>document.images</code>. Properties: <code>src</code>, <code>alt</code>, <code>width</code>, <code>height</code>, <code>name</code>, <code>complete</code> (finished loading?). Events: <code>onload</code>, <code>onerror</code>, <code>onabort</code>. Two classic uses:</p>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;!-- Rollover: change the picture when the mouse is over it --&gt;
+&lt;img id="btn" src="off.png"
+     onmouseover="this.src='on.png'"
+     onmouseout="this.src='off.png'"&gt;
+
+&lt;script&gt;
+  // Preloading: load an image in advance so the swap is instant
+  let pre = new Image();
+  pre.src = "on.png";
+&lt;/script&gt;</code></pre></div>
+
+<h4>Applet object</h4>
+<p>Represents a Java applet. Listed in <code>document.applets</code>. JavaScript could call the applet's public methods and read its properties (a feature called LiveConnect).</p>
+<div class="note old"><span class="nt">Outdated</span><p>Applets no longer run in any modern browser, so the Applet object is dead. Know the definition for the exam only.</p></div>
+
+<h4>Layer object</h4>
+<p>Netscape Navigator 4's own way to put content on <b>separate stacked, positionable layers</b>: the <code>&lt;layer&gt;</code> and <code>&lt;ilayer&gt;</code> tags and <code>document.layers[]</code>. Properties: <code>top</code>, <code>left</code>, <code>visibility</code>, <code>zIndex</code>, <code>clip</code>, <code>background</code>. You could move, hide or overlap layers with script, which was the basis of early animations and drop-down menus.</p>
+<div class="note old"><span class="nt">Outdated</span><p>Layers existed only in Netscape 4 and were dropped in Netscape 6. The standard replacement is a <code>&lt;div&gt;</code> styled with CSS: <code>position: absolute; top; left; z-index; visibility</code>, changed through <code>element.style</code>.</p></div>
+</div>
+
+<div class="topic" id="u4-events">
+<h3>Events and event handlers</h3>
+<p>An <mark>event</mark> is something that happens: a click, a key press, a page finishing loading. An <mark>event handler</mark> is the code that runs in response. Most JavaScript on a web page is "when this happens, do that".</p>
+<div class="tw"><table class="t">
+<tr><th>Group</th><th>Events (handler is "on" + name)</th></tr>
+<tr><td>Mouse</td><td><code>click</code>, <code>dblclick</code>, <code>mousedown</code>, <code>mouseup</code>, <code>mouseover</code>, <code>mouseout</code>, <code>mousemove</code></td></tr>
+<tr><td>Keyboard</td><td><code>keydown</code>, <code>keyup</code> (<code>keypress</code> is deprecated)</td></tr>
+<tr><td>Form</td><td><code>submit</code>, <code>reset</code>, <code>change</code>, <code>input</code>, <code>focus</code> (entered a field), <code>blur</code> (left a field), <code>select</code></td></tr>
+<tr><td>Page / window</td><td><code>load</code>, <code>unload</code>, <code>resize</code>, <code>scroll</code>, <code>error</code>, <code>abort</code></td></tr>
+</table></div>
+<h4>Three ways to attach a handler</h4>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;!-- 1. Inline attribute (simple, but mixes HTML and JS) --&gt;
+&lt;button onclick="alert('Clicked')"&gt;Inline&lt;/button&gt;
+
+&lt;button id="b2"&gt;Property&lt;/button&gt;
+&lt;button id="b3"&gt;Listener&lt;/button&gt;
+&lt;script&gt;
+  // 2. As a property (only ONE handler per event)
+  document.getElementById("b2").onclick = function () {
+    alert("Property handler");
+  };
+
+  // 3. addEventListener (best: many handlers, can be removed)
+  document.getElementById("b3").addEventListener("click", function (event) {
+    alert("Listener handler. Event type: " + event.type);
+  });
+&lt;/script&gt;</code></pre></div>
+<p><b>The event object</b> is passed to the handler and describes what happened: <code>event.type</code>, <code>event.target</code> (the element), <code>event.key</code> (which key), <code>event.clientX</code>/<code>clientY</code> (mouse position), <code>event.preventDefault()</code> (stop the default action, such as a form submitting), <code>event.stopPropagation()</code>.</p>
+<h4>Classic example: form validation</h4>
+<div class="code"><div class="code-bar"><span>html</span><button type="button">Copy</button></div><pre><code>&lt;form onsubmit="return check()"&gt;
+  &lt;input type="text" id="user"&gt;
+  &lt;input type="submit"&gt;
+&lt;/form&gt;
+&lt;script&gt;
+  function check() {
+    let v = document.getElementById("user").value.trim();
+    if (v === "") {
+      alert("Name cannot be empty");
+      return false;          // returning false CANCELS the submit
+    }
+    return true;
+  }
+&lt;/script&gt;</code></pre></div>
+<div class="demo"><span class="nt">Try it: watch events happen</span>
+<span class="evbox" id="evBox" tabindex="0">Hover, click or double-click me</span>
+<input type="text" id="evInput" placeholder="Type here (focus, key, blur)">
+<div class="out" id="evOut">Events will be listed here.</div>
+</div>
+<div class="note tip"><span class="nt">Remember</span><p>Event bubbling: an event on an inner element also travels up to its parents. Clicking a button inside a div fires the button's handler first, then the div's. This is why one handler on a parent can serve many children.</p></div>
+</div>
+
+<div class="topic" id="u4-qa">
+<h3>Likely questions and checklist</h3>
+<details class="qa"><summary>Explain any five methods of the Array object.</summary><div class="ans"><p><code>push()</code> adds at the end, <code>pop()</code> removes the last, <code>shift()</code> removes the first, <code>unshift()</code> adds at the start, <code>splice()</code> removes or inserts at an index, <code>slice()</code> copies a part, <code>join()</code> makes a string, <code>sort()</code> sorts, <code>reverse()</code> reverses.</p></div></details>
+<details class="qa"><summary>Explain the Math object with methods.</summary><div class="ans"><p>Math is a built-in object with mathematical constants (PI, E) and static methods: <code>abs</code>, <code>ceil</code>, <code>floor</code>, <code>round</code>, <code>sqrt</code>, <code>pow</code>, <code>max</code>, <code>min</code>, <code>random</code>, and trigonometric functions. It cannot be instantiated with <code>new</code>.</p></div></details>
+<details class="qa"><summary>Write a program to display the current date and time.</summary><div class="ans"><p>Create <code>new Date()</code>, then use <code>getDate()</code>, <code>getMonth() + 1</code>, <code>getFullYear()</code>, <code>getHours()</code>, <code>getMinutes()</code>, <code>getSeconds()</code>, or simply <code>toString()</code>. Remember that <code>getMonth()</code> starts from 0.</p></div></details>
+<details class="qa"><summary>What is a regular expression? Write one to validate a 10-digit mobile number.</summary><div class="ans"><p>A pattern used to match character combinations in text. For a mobile number: <code>/^[6-9]\d{9}$/</code>, tested with <code>re.test(value)</code>.</p></div></details>
+<details class="qa"><summary>What is the document object? Name its properties and methods.</summary><div class="ans"><p>It represents the loaded web page. Properties: title, URL, forms, images, links, cookie, body. Methods: write(), getElementById(), getElementsByTagName(), querySelector(), createElement().</p></div></details>
+<details class="qa"><summary>What are Link, Anchor, Image and Layer objects?</summary><div class="ans"><p>Link represents a hyperlink (<code>document.links</code>). Anchor represents a named target (<code>document.anchors</code>). Image represents an image (<code>document.images</code>). Layer was a Netscape 4 object for positionable stacked content, replaced today by CSS-positioned divs.</p></div></details>
+<details class="qa"><summary>What are events and event handlers? Give examples.</summary><div class="ans"><p>Events are occurrences such as click, mouseover, keydown, load, submit. Event handlers are functions or code that run when they occur, e.g. <code>onclick</code>, <code>onmouseover</code>, <code>onload</code>, <code>onsubmit</code>, <code>onchange</code>.</p></div></details>
+<details class="qa"><summary>Difference between substring() and slice(), and between splice() and slice().</summary><div class="ans"><p><code>slice</code> accepts negative indexes; <code>substring</code> treats them as 0. <code>splice</code> (arrays) changes the original array by removing or inserting; <code>slice</code> only copies a part and leaves the original untouched.</p></div></details>
+
+<h4>Revision checklist</h4>
+<ul class="check">
+  <li><label><input type="checkbox" data-k="u4-1"><span>Array: I know length and the ten common methods (and which mutate)</span></label></li>
+  <li><label><input type="checkbox" data-k="u4-2"><span>Boolean and Function: I know their members, call vs apply vs bind</span></label></li>
+  <li><label><input type="checkbox" data-k="u4-3"><span>Date: I know the get/set methods and the zero-based month trap</span></label></li>
+  <li><label><input type="checkbox" data-k="u4-4"><span>Math: I know ceil, floor, round, random and can make a random integer</span></label></li>
+  <li><label><input type="checkbox" data-k="u4-5"><span>Number: MAX_VALUE, MIN_VALUE, NaN, toFixed, parseInt, parseFloat</span></label></li>
+  <li><label><input type="checkbox" data-k="u4-6"><span>Object: keys, values, hasOwnProperty, prototype</span></label></li>
+  <li><label><input type="checkbox" data-k="u4-7"><span>String: the common methods and that strings are immutable</span></label></li>
+  <li><label><input type="checkbox" data-k="u4-8"><span>RegExp: flags, test/exec, and I can write a mobile and PIN check</span></label></li>
+  <li><label><input type="checkbox" data-k="u4-9"><span>DOM: document, Link, Area, Anchor, Image, and why Applet and Layer are obsolete</span></label></li>
+  <li><label><input type="checkbox" data-k="u4-10"><span>Events: I can list events, attach handlers 3 ways, and write form validation</span></label></li>
+</ul>
+</div>
+</section>
+
+<!-- ============ UNIT V ============ -->
+<section class="unit" id="unit5" style="--u:var(--u5)">
+<header class="unit-head">
+  <div class="unit-no">Unit V</div>
+  <h2>XML</h2>
+  <p class="covers">Introduction to XML, anatomy of an XML document, creating XML documents, creating XML DTDs, XML Schemas, XSL.</p>
+</header>
+
+
+<div class="topic" id="u5-intro">
+<h3>Introduction to XML</h3>
+<p><mark>XML (eXtensible Markup Language)</mark> is a text format for <b>storing and transporting data</b>. You invent your own tags to describe your data, so the file explains itself. It was made a W3C recommendation in 1998.</p>
+<p>The key difference from HTML: <b>HTML displays data; XML describes data.</b></p>
+<div class="tw"><table class="t">
+<tr><th></th><th>HTML</th><th>XML</th></tr>
+<tr><td>Purpose</td><td>Show information in a browser</td><td>Store and carry data</td></tr>
+<tr><td>Tags</td><td>Fixed, predefined (<code>&lt;p&gt;</code>, <code>&lt;table&gt;</code>)</td><td>You define them (<code>&lt;student&gt;</code>, <code>&lt;price&gt;</code>)</td></tr>
+<tr><td>Rules</td><td>Forgiving: missing closing tags are tolerated</td><td>Strict: any mistake makes the file invalid</td></tr>
+<tr><td>Case</td><td>Not case-sensitive</td><td>Case-sensitive</td></tr>
+<tr><td>Empty tags</td><td><code>&lt;br&gt;</code> allowed</td><td>Must be closed: <code>&lt;br/&gt;</code></td></tr>
+<tr><td>Whitespace</td><td>Collapsed</td><td>Preserved</td></tr>
+</table></div>
+<h4>Why XML?</h4>
+<ul>
+  <li><b>Self-descriptive:</b> <code>&lt;price&gt;250&lt;/price&gt;</code> tells you what 250 is.</li>
+  <li><b>Platform and language independent:</b> any system can read plain text, so different applications can exchange data.</li>
+  <li><b>Separates data from presentation:</b> one XML file can be shown many ways using XSL.</li>
+  <li><b>Where it is used:</b> RSS feeds, sitemaps, SVG images, Microsoft Office files (.docx is a zip of XML), Android layouts, configuration files, SOAP web services.</li>
+</ul>
+<div class="note tip"><span class="nt">Remember</span><p>XML doesn't <em>do</em> anything by itself. It is just structured data waiting for a program to read it. Today many APIs use JSON instead, but XML is still everywhere in enterprise systems and file formats.</p></div>
+</div>
+
+<div class="topic" id="u5-anatomy">
+<h3>Anatomy of an XML document</h3>
+<div class="code"><div class="code-bar"><span>xml</span><button type="button">Copy</button></div><pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;          &lt;!-- 1. XML declaration (prolog) --&gt;
+&lt;!-- List of students --&gt;                         &lt;!-- 2. Comment --&gt;
+&lt;students&gt;                                        &lt;!-- 3. Root element (only one) --&gt;
+  &lt;student id="101"&gt;                              &lt;!-- 4. Element with an attribute --&gt;
+    &lt;name&gt;Asha Verma&lt;/name&gt;                       &lt;!-- 5. Child element with text --&gt;
+    &lt;course&gt;BCA&lt;/course&gt;
+    &lt;marks&gt;82&lt;/marks&gt;
+  &lt;/student&gt;
+  &lt;student id="102"&gt;
+    &lt;name&gt;Ravi Kumar&lt;/name&gt;
+    &lt;course&gt;BCA&lt;/course&gt;
+    &lt;marks&gt;67&lt;/marks&gt;
+  &lt;/student&gt;
+&lt;/students&gt;</code></pre></div>
+<div class="tw"><table class="t">
+<tr><th>Part</th><th>What it is</th></tr>
+<tr><td>XML declaration (prolog)</td><td>First line, optional but recommended. Gives the version and character encoding. If present, it must be the very first thing in the file.</td></tr>
+<tr><td>Root element</td><td>The single outermost element that contains everything else (<code>&lt;students&gt;</code>). Every document has exactly one.</td></tr>
+<tr><td>Element</td><td>Start tag + content + end tag. Content can be text, other elements, or both. Elements inside another are its <b>children</b>.</td></tr>
+<tr><td>Attribute</td><td>A name="value" pair in the start tag (<code>id="101"</code>). Values must be in quotes.</td></tr>
+<tr><td>Text content</td><td>The characters between tags.</td></tr>
+<tr><td>Comment</td><td><code>&lt;!-- ... --&gt;</code>. Ignored by programs.</td></tr>
+<tr><td>CDATA section</td><td><code>&lt;![CDATA[ ... ]]&gt;</code>. Everything inside is plain text, so you can write <code>&lt;</code> and <code>&amp;</code> freely.</td></tr>
+<tr><td>Processing instruction</td><td><code>&lt;?xml-stylesheet ... ?&gt;</code>. An instruction for the program reading the file.</td></tr>
+<tr><td>Entity references</td><td>Escapes for special characters (below).</td></tr>
+<tr><td>Namespace</td><td><code>xmlns</code> attribute. Avoids clashes when two vocabularies use the same tag name.</td></tr>
+</table></div>
+<div class="tw"><table class="t">
+<tr><th>Write</th><th>To get</th></tr>
+<tr><td><code>&amp;lt;</code></td><td>&lt;</td></tr>
+<tr><td><code>&amp;gt;</code></td><td>&gt;</td></tr>
+<tr><td><code>&amp;amp;</code></td><td>&amp;</td></tr>
+<tr><td><code>&amp;quot;</code></td><td>"</td></tr>
+<tr><td><code>&amp;apos;</code></td><td>'</td></tr>
+</table></div>
+
+<h4>Well-formed vs valid</h4>
+<p><b>Well-formed</b> means the document obeys XML's syntax rules. <b>Valid</b> means it is well-formed <em>and</em> also follows the rules of a DTD or Schema. A parser rejects a document that is not well-formed.</p>
+<ul>
+  <li>There must be <b>exactly one root element</b>.</li>
+  <li>Every start tag needs an end tag (or be self-closing: <code>&lt;br/&gt;</code>).</li>
+  <li>Tags must be <b>properly nested</b>: <code>&lt;a&gt;&lt;b&gt;&lt;/b&gt;&lt;/a&gt;</code> is fine, <code>&lt;a&gt;&lt;b&gt;&lt;/a&gt;&lt;/b&gt;</code> is not.</li>
+  <li>Tag names are <b>case-sensitive</b>: <code>&lt;Name&gt;</code> and <code>&lt;name&gt;</code> are different.</li>
+  <li>Attribute values must be <b>quoted</b>.</li>
+  <li>Special characters must be escaped (<code>&amp;lt;</code>, <code>&amp;amp;</code> and so on).</li>
+  <li>Names can't start with a number or contain spaces.</li>
+</ul>
+<div class="demo"><span class="nt">Try it: is this XML well-formed?</span>
+<p>Edit the XML (try removing a closing tag) and press Check. The browser's own XML parser gives the verdict.</p>
+<textarea id="xmlIn" rows="9" style="width:100%;font-family:'JetBrains Mono',ui-monospace,monospace;font-size:14px;padding:8px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:6px">&lt;students&gt;
+  &lt;student id="101"&gt;
+    &lt;name&gt;Asha Verma&lt;/name&gt;
+    &lt;marks&gt;82&lt;/marks&gt;
+  &lt;/student&gt;
+&lt;/students&gt;</textarea>
+<p><button type="button" id="xmlCheck">Check</button></p>
+<div class="out" id="xmlOut"></div>
+</div>
+</div>
+
+<div class="topic" id="u5-create">
+<h3>Creating XML documents</h3>
+<ul class="flow">
+  <li><b>1. Plan the data</b>List what you store and how it nests: a student has a name, course, marks</li>
+  <li><b>2. Write it</b>Use any text editor (Notepad, VS Code). Start with the declaration and one root element</li>
+  <li><b>3. Save as .xml</b>Use UTF-8 encoding, for example <code>students.xml</code></li>
+  <li><b>4. Check it</b>Open in a browser: it shows the tree if well-formed, or an error message with the line number if not</li>
+</ul>
+<h4>Element or attribute?</h4>
+<p>Both can hold data, so people ask which to use. A good rule: use <b>elements for the data itself</b> (name, marks) and <b>attributes for information about the data</b> (an id, a unit, a language). Attributes can't hold structure or repeat, elements can.</p>
+<div class="code"><div class="code-bar"><span>xml</span><button type="button">Copy</button></div><pre><code>&lt;!-- Attribute for metadata, elements for data --&gt;
+&lt;price currency="INR"&gt;250&lt;/price&gt;
+
+&lt;!-- An empty element can carry everything in attributes --&gt;
+&lt;image src="photo.jpg" width="200"/&gt;</code></pre></div>
+<p>Programs read XML with a <b>parser</b>: a <b>DOM parser</b> loads the whole tree into memory (easy, uses more memory); a <b>SAX parser</b> reads it as a stream of events (fast, low memory). In the browser, JavaScript can read XML with <code>DOMParser</code>, exactly as the demo above does.</p>
+</div>
+
+<div class="topic" id="u5-dtd">
+<h3>Creating XML DTDs</h3>
+<p>A <mark>DTD (Document Type Definition)</mark> is a set of rules describing which elements and attributes a document may contain, in what order, and how many times. It is the older way of validating XML. It uses its own non-XML syntax.</p>
+<h4>Internal DTD (inside the XML file)</h4>
+<div class="code"><div class="code-bar"><span>xml</span><button type="button">Copy</button></div><pre><code>&lt;?xml version="1.0"?&gt;
+&lt;!DOCTYPE students [
+  &lt;!ELEMENT students (student+)&gt;
+  &lt;!ELEMENT student (name, course, marks)&gt;
+  &lt;!ATTLIST student id CDATA #REQUIRED&gt;
+  &lt;!ELEMENT name (#PCDATA)&gt;
+  &lt;!ELEMENT course (#PCDATA)&gt;
+  &lt;!ELEMENT marks (#PCDATA)&gt;
+]&gt;
+&lt;students&gt;
+  &lt;student id="101"&gt;&lt;name&gt;Asha&lt;/name&gt;&lt;course&gt;BCA&lt;/course&gt;&lt;marks&gt;82&lt;/marks&gt;&lt;/student&gt;
+&lt;/students&gt;</code></pre></div>
+<h4>External DTD (separate file)</h4>
+<div class="code"><div class="code-bar"><span>xml</span><button type="button">Copy</button></div><pre><code>&lt;!-- in students.xml --&gt;
+&lt;!DOCTYPE students SYSTEM "students.dtd"&gt;
+
+&lt;!-- students.dtd contains only the rules --&gt;
+&lt;!ELEMENT students (student+)&gt;
+&lt;!ELEMENT student (name, course, marks)&gt;
+...</code></pre></div>
+<p>Use an external DTD when many documents share the same rules. Read the internal example line by line:</p>
+<ul>
+  <li><code>&lt;!DOCTYPE students [ ... ]&gt;</code>: the name after DOCTYPE must match the root element.</li>
+  <li><code>&lt;!ELEMENT students (student+)&gt;</code>: <code>students</code> contains one or more <code>student</code> elements.</li>
+  <li><code>&lt;!ELEMENT student (name, course, marks)&gt;</code>: exactly these three children, in this order.</li>
+  <li><code>&lt;!ELEMENT name (#PCDATA)&gt;</code>: contains only text (parsed character data).</li>
+  <li><code>&lt;!ATTLIST student id CDATA #REQUIRED&gt;</code>: <code>student</code> must have an attribute <code>id</code> holding text.</li>
+</ul>
+<h4>Symbols used in DTD element rules</h4>
+<div class="tw"><table class="t">
+<tr><th>Symbol</th><th>Meaning</th><th>Example</th></tr>
+<tr><td>(a, b)</td><td>Sequence: a then b</td><td><code>(name, course)</code></td></tr>
+<tr><td>(a | b)</td><td>Choice: a or b</td><td><code>(phone | email)</code></td></tr>
+<tr><td>+</td><td>One or more</td><td><code>student+</code></td></tr>
+<tr><td>*</td><td>Zero or more</td><td><code>note*</code></td></tr>
+<tr><td>?</td><td>Zero or one (optional)</td><td><code>middle?</code></td></tr>
+<tr><td>#PCDATA</td><td>Text only</td><td><code>(#PCDATA)</code></td></tr>
+<tr><td>EMPTY</td><td>No content</td><td><code>&lt;!ELEMENT br EMPTY&gt;</code></td></tr>
+<tr><td>ANY</td><td>Anything allowed</td><td><code>&lt;!ELEMENT x ANY&gt;</code></td></tr>
+</table></div>
+<h4>Attribute declarations</h4>
+<div class="tw"><table class="t">
+<tr><th>Part</th><th>Options</th></tr>
+<tr><td>Type</td><td><code>CDATA</code> (text), <code>ID</code> (unique identifier), <code>IDREF</code> (refers to an ID), <code>NMTOKEN</code>, or an enumerated list <code>(male|female)</code></td></tr>
+<tr><td>Default</td><td><code>#REQUIRED</code> (must be given), <code>#IMPLIED</code> (optional), <code>#FIXED "value"</code> (always this value), or a default value in quotes</td></tr>
+</table></div>
+<div class="code"><div class="code-bar"><span>xml</span><button type="button">Copy</button></div><pre><code>&lt;!ATTLIST student id ID #REQUIRED
+                  gender (male|female) #IMPLIED
+                  country CDATA "India"&gt;
+&lt;!ENTITY college "Government Degree College"&gt;   &lt;!-- use it as &amp;college; --&gt;</code></pre></div>
+<div class="note exam"><span class="nt">Limitations of DTD (why Schema was created)</span>
+<p>DTD is not written in XML, has no real data types (everything is text), doesn't support namespaces well, and can't say things like "marks is a number between 0 and 100".</p></div>
+</div>
+
+<div class="topic" id="u5-schema">
+<h3>XML Schemas</h3>
+<p>An <mark>XML Schema (XSD, XML Schema Definition)</mark> does the same job as a DTD, but it is <b>written in XML</b> itself and is far more powerful: it has <b>data types</b>, ranges, patterns and namespace support.</p>
+<div class="code"><div class="code-bar"><span>xml</span><button type="button">Copy</button></div><pre><code>&lt;?xml version="1.0"?&gt;
+&lt;xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"&gt;
+
+  &lt;xs:element name="students"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:sequence&gt;
+        &lt;xs:element name="student" maxOccurs="unbounded"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="name"   type="xs:string"/&gt;
+              &lt;xs:element name="course" type="xs:string"/&gt;
+              &lt;xs:element name="marks"  type="xs:integer"/&gt;
+            &lt;/xs:sequence&gt;
+            &lt;xs:attribute name="id" type="xs:integer" use="required"/&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+
+&lt;/xs:schema&gt;</code></pre></div>
+<p>Link the schema to the XML document by adding two attributes on the root:</p>
+<div class="code"><div class="code-bar"><span>xml</span><button type="button">Copy</button></div><pre><code>&lt;students xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="students.xsd"&gt;</code></pre></div>
+<h4>Key pieces</h4>
+<ul>
+  <li><b>Simple element:</b> only text, no children or attributes: <code>&lt;xs:element name="name" type="xs:string"/&gt;</code>.</li>
+  <li><b>Complex type:</b> an element with children and/or attributes; <code>xs:sequence</code> fixes their order, <code>xs:choice</code> allows one of several, <code>xs:all</code> allows any order.</li>
+  <li><b>Occurrence:</b> <code>minOccurs</code> and <code>maxOccurs</code> (a number or <code>"unbounded"</code>) replace the DTD symbols <code>? * +</code>.</li>
+  <li><b>Built-in types:</b> <code>xs:string</code>, <code>xs:integer</code>, <code>xs:decimal</code>, <code>xs:boolean</code>, <code>xs:date</code>, <code>xs:time</code>.</li>
+</ul>
+<h4>Restricting values</h4>
+<div class="code"><div class="code-bar"><span>xml</span><button type="button">Copy</button></div><pre><code>&lt;xs:element name="marks"&gt;
+  &lt;xs:simpleType&gt;
+    &lt;xs:restriction base="xs:integer"&gt;
+      &lt;xs:minInclusive value="0"/&gt;
+      &lt;xs:maxInclusive value="100"/&gt;
+    &lt;/xs:restriction&gt;
+  &lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+
+&lt;!-- pattern: exactly 6 digits (a PIN code) --&gt;
+&lt;xs:simpleType name="pinType"&gt;
+  &lt;xs:restriction base="xs:string"&gt;
+    &lt;xs:pattern value="[0-9]{6}"/&gt;
+  &lt;/xs:restriction&gt;
+&lt;/xs:simpleType&gt;</code></pre></div>
+<h4>DTD vs Schema</h4>
+<div class="tw"><table class="t">
+<tr><th></th><th>DTD</th><th>XML Schema (XSD)</th></tr>
+<tr><td>Syntax</td><td>Its own special syntax</td><td>Written in XML</td></tr>
+<tr><td>Data types</td><td>Almost none (text only)</td><td>Many built-in types, and you can create your own</td></tr>
+<tr><td>Restrictions</td><td>No ranges or patterns</td><td>Ranges, lengths, patterns, enumerations</td></tr>
+<tr><td>Namespaces</td><td>Poor support</td><td>Full support</td></tr>
+<tr><td>Occurrence control</td><td><code>+ * ?</code> only</td><td>Any number with <code>minOccurs</code>/<code>maxOccurs</code></td></tr>
+<tr><td>Learning curve</td><td>Short and simple</td><td>Longer and more verbose</td></tr>
+</table></div>
+</div>
+
+<div class="topic" id="u5-xsl">
+<h3>XSL</h3>
+<p><mark>XSL (eXtensible Stylesheet Language)</mark> is the styling language for XML. Since XML has no built-in look, XSL says how to display or convert it. It is a family of three parts:</p>
+<div class="tw"><table class="t">
+<tr><th>Part</th><th>Job</th></tr>
+<tr><td>XSLT</td><td>Transforms an XML document into another form (HTML, another XML, plain text). This is the part everyone means by "XSL".</td></tr>
+<tr><td>XPath</td><td>A syntax to pick parts of an XML document: <code>students/student</code>, <code>@id</code>, <code>student[marks &gt; 75]</code></td></tr>
+<tr><td>XSL-FO</td><td>Formatting objects, for print output such as PDF</td></tr>
+</table></div>
+<h4>Example: show the student list as an HTML table</h4>
+<p>First connect the stylesheet from the XML file (put this line right after the declaration):</p>
+<div class="code"><div class="code-bar"><span>xml</span><button type="button">Copy</button></div><pre><code>&lt;?xml-stylesheet type="text/xsl" href="students.xsl"?&gt;</code></pre></div>
+<p>Then write <code>students.xsl</code>:</p>
+<div class="code"><div class="code-bar"><span>xml</span><button type="button">Copy</button></div><pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;xsl:stylesheet version="1.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"&gt;
+
+  &lt;xsl:template match="/"&gt;                      &lt;!-- match the whole document --&gt;
+    &lt;html&gt;
+      &lt;body&gt;
+        &lt;h2&gt;Student Marks&lt;/h2&gt;
+        &lt;table border="1"&gt;
+          &lt;tr&gt;&lt;th&gt;ID&lt;/th&gt;&lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Marks&lt;/th&gt;&lt;/tr&gt;
+
+          &lt;xsl:for-each select="students/student"&gt;        &lt;!-- loop --&gt;
+            &lt;xsl:sort select="marks" data-type="number" order="descending"/&gt;
+            &lt;tr&gt;
+              &lt;td&gt;&lt;xsl:value-of select="@id"/&gt;&lt;/td&gt;      &lt;!-- attribute --&gt;
+              &lt;td&gt;&lt;xsl:value-of select="name"/&gt;&lt;/td&gt;     &lt;!-- child element --&gt;
+              &lt;td&gt;
+                &lt;xsl:choose&gt;
+                  &lt;xsl:when test="marks &amp;gt;= 75"&gt;
+                    &lt;b&gt;&lt;xsl:value-of select="marks"/&gt;&lt;/b&gt;
+                  &lt;/xsl:when&gt;
+                  &lt;xsl:otherwise&gt;
+                    &lt;xsl:value-of select="marks"/&gt;
+                  &lt;/xsl:otherwise&gt;
+                &lt;/xsl:choose&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          &lt;/xsl:for-each&gt;
+        &lt;/table&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;
+  &lt;/xsl:template&gt;
+
+&lt;/xsl:stylesheet&gt;</code></pre></div>
+<div class="tw"><table class="t">
+<tr><th>XSL element</th><th>Does</th></tr>
+<tr><td><code>xsl:stylesheet</code></td><td>Root of the stylesheet (with the xsl namespace)</td></tr>
+<tr><td><code>xsl:template match="..."</code></td><td>A rule: "when you meet this part of the XML, produce this output"</td></tr>
+<tr><td><code>xsl:value-of select="..."</code></td><td>Output the value of the selected node</td></tr>
+<tr><td><code>xsl:for-each select="..."</code></td><td>Loop over every matching node</td></tr>
+<tr><td><code>xsl:sort select="..."</code></td><td>Sort inside a loop</td></tr>
+<tr><td><code>xsl:if test="..."</code></td><td>Output only when a condition is true (no else)</td></tr>
+<tr><td><code>xsl:choose / when / otherwise</code></td><td>If / else-if / else</td></tr>
+<tr><td><code>xsl:apply-templates</code></td><td>Hand children over to other templates</td></tr>
+</table></div>
+<div class="note tip"><span class="nt">If the XSL page shows blank when you test it</span><p>Chrome blocks XSLT on files opened straight from disk (<code>file://</code>). Either open the XML in Firefox, or run a tiny local server from the folder: <code>python -m http.server</code>, then visit <code>http://localhost:8000/students.xml</code>.</p></div>
+<div class="note teach"><span class="nt">Simpler alternative</span><p>You can also style XML with plain <b>CSS</b> by adding <code>&lt;?xml-stylesheet type="text/css" href="style.css"?&gt;</code> and writing rules like <code>student { display: block; }</code>. CSS only styles; XSL can also reorder, filter and transform.</p></div>
+</div>
+
+<div class="topic" id="u5-qa">
+<h3>Likely questions and checklist</h3>
+<details class="qa"><summary>What is XML? Differentiate between XML and HTML.</summary><div class="ans"><p>XML is a markup language for storing and transporting data using user-defined tags. HTML has fixed tags and displays data. XML is case-sensitive and strict; HTML is forgiving. XML describes what data is; HTML describes how it appears.</p></div></details>
+<details class="qa"><summary>What is a well-formed XML document? State the rules.</summary><div class="ans"><p>One that obeys XML syntax: exactly one root element, all tags closed, proper nesting, case-sensitive names, quoted attribute values, and special characters escaped.</p></div></details>
+<details class="qa"><summary>Differentiate between well-formed and valid XML.</summary><div class="ans"><p>Well-formed means correct syntax. Valid means well-formed and also conforming to a DTD or Schema.</p></div></details>
+<details class="qa"><summary>What is a DTD? Explain internal and external DTD with an example.</summary><div class="ans"><p>A DTD defines the legal structure of an XML document (elements, attributes, order, occurrence). An internal DTD is placed inside the XML file within <code>&lt;!DOCTYPE root [ ... ]&gt;</code>; an external DTD is a separate .dtd file referenced with <code>&lt;!DOCTYPE root SYSTEM "file.dtd"&gt;</code>. Give the students example.</p></div></details>
+<details class="qa"><summary>Differentiate between DTD and XML Schema.</summary><div class="ans"><p>Schema is written in XML, supports data types, restrictions and namespaces, and gives finer control over occurrences. DTD uses non-XML syntax, has essentially no data types and no restrictions.</p></div></details>
+<details class="qa"><summary>What is XSL? Explain XSLT with an example.</summary><div class="ans"><p>XSL is a stylesheet language for XML made of XSLT (transformation), XPath (selecting nodes) and XSL-FO (formatting). XSLT uses templates such as <code>xsl:template</code>, <code>xsl:for-each</code> and <code>xsl:value-of</code> to convert XML into HTML. Give the students table example.</p></div></details>
+<details class="qa"><summary>What are the components of an XML document?</summary><div class="ans"><p>Declaration, root element, child elements, attributes, text, comments, CDATA sections, processing instructions and entity references.</p></div></details>
+
+<h4>Revision checklist</h4>
+<ul class="check">
+  <li><label><input type="checkbox" data-k="u5-1"><span>I can define XML and give five differences from HTML</span></label></li>
+  <li><label><input type="checkbox" data-k="u5-2"><span>I can label every part of an XML document</span></label></li>
+  <li><label><input type="checkbox" data-k="u5-3"><span>I know the well-formedness rules and well-formed vs valid</span></label></li>
+  <li><label><input type="checkbox" data-k="u5-4"><span>I can write a small XML file from scratch</span></label></li>
+  <li><label><input type="checkbox" data-k="u5-5"><span>I can write an internal and an external DTD, with ELEMENT and ATTLIST</span></label></li>
+  <li><label><input type="checkbox" data-k="u5-6"><span>I can write a simple XSD with a restriction</span></label></li>
+  <li><label><input type="checkbox" data-k="u5-7"><span>I can compare DTD and Schema</span></label></li>
+  <li><label><input type="checkbox" data-k="u5-8"><span>I can write an XSL stylesheet with for-each, value-of, sort and choose</span></label></li>
+</ul>
+</div>
+</section>
+
+<!-- ============ OPTIONAL UNIT ============ -->
+<section class="unit" id="unit6" style="--u:var(--u6)">
+<header class="unit-head">
+  <div class="unit-no">Optional unit</div>
+  <h2>CSS, responsive design and the full-stack roadmap</h2>
+  <p class="covers">Part A: CSS, layout, responsive design, usability. Part B: a roadmap from this syllabus to MERN full-stack, with AI tools (like Antigravity) used for development.</p>
+</header>
+
+<div class="note teach"><span class="nt">About this unit</span>
+<p>It is not one of the five syllabus units. The course objectives, though, mention CSS, responsive websites and usability, so Part A covers them. Part B shows where to go after the syllabus. Skip it if you are only revising for the exam.</p></div>
+
+<div class="topic" id="u6-css">
+<h3>CSS: external stylesheet and the three basic selectors</h3>
+<p><mark>CSS (Cascading Style Sheets)</mark> controls how HTML looks: colours, fonts, spacing and layout. HTML says <em>what</em> something is; CSS says <em>how it looks</em>.</p>
+<div class="tw"><table class="t">
+<tr><th>Way to add CSS</th><th>Example</th><th>Use</th></tr>
+<tr><td>Inline</td><td><code>&lt;p style="color:red"&gt;</code></td><td>One-off fixes only</td></tr>
+<tr><td>Internal</td><td><code>&lt;style&gt;...&lt;/style&gt;</code> in the head</td><td>A single page</td></tr>
+<tr><td>External</td><td><code>&lt;link rel="stylesheet" href="style.css"&gt;</code></td><td>Whole website (best practice)</td></tr>
+</table></div>
+<h4>External CSS in practice</h4>
+<p>Put all the styles in one file, <code>style.css</code>, link it from every page, and use <b>selectors</b> to say which elements each rule applies to. The three basic selectors are <mark>type</mark>, <mark>class</mark> and <mark>id</mark>.</p>
+<div class="tw"><table class="t">
+<tr><th>Selector</th><th>Written as</th><th>Matches</th><th>In HTML</th></tr>
+<tr><td>Type (element)</td><td><code>p { }</code></td><td>Every element of that tag</td><td>No attribute needed</td></tr>
+<tr><td>Class</td><td><code>.note { }</code></td><td>Every element with that class (reusable)</td><td><code>class="note"</code></td></tr>
+<tr><td>ID</td><td><code>#title { }</code></td><td>The one element with that id (must be unique)</td><td><code>id="title"</code></td></tr>
+</table></div>
+<div class="code"><div class="code-bar"><span>index.html</span><button type="button">Copy</button></div><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;Selectors demo&lt;/title&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;   &lt;!-- external CSS --&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1 id="title"&gt;My Page&lt;/h1&gt;
+  &lt;p&gt;A normal paragraph.&lt;/p&gt;
+  &lt;p class="note"&gt;An important paragraph.&lt;/p&gt;
+  &lt;p class="note"&gt;Another important paragraph.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+<div class="code"><div class="code-bar"><span>style.css</span><button type="button">Copy</button></div><pre><code>/* 1. Type selector: styles every &lt;p&gt; */
+p      { color: #333; font-size: 18px; }
+
+/* 2. Class selector: styles every element with class="note" */
+.note  { background: #fff3d1; padding: 10px; }
+
+/* 3. ID selector: styles only the element with id="title" */
+#title { color: navy; text-align: center; }</code></pre></div>
+<p>The result: all three paragraphs get grey text (type), the two notes also get a yellow background (class), and the heading is navy and centred (id).</p>
+<div class="note tip"><span class="nt">Remember</span><p>Use a <b>class</b> when many elements share a style, and an <b>id</b> only for one unique element. Other selectors build on these: grouping <code>h1, h2 { }</code>, descendant <code>nav a { }</code>, pseudo-class <code>a:hover { }</code> and attribute <code>input[type="text"] { }</code>.</p></div>
+<div class="note exam"><span class="nt">Exam answer: cascade and specificity</span>
+<p>When rules conflict, the browser picks by <b>specificity</b> (inline &gt; id &gt; class/attribute/pseudo-class &gt; element), then by <b>source order</b> (later wins). <code>!important</code> overrides both, so avoid it.</p></div>
+</div>
+
+<div class="topic" id="u6-box">
+<h3>Box model, units and colours</h3>
+<p>Every element is a box: <b>content</b>, then <b>padding</b>, then <b>border</b>, then <b>margin</b> outside. Add <code>box-sizing: border-box</code> so width includes padding and border, which makes sizes predictable.</p>
+<div class="tw"><table class="t">
+<tr><th>Unit</th><th>Meaning</th><th>Good for</th></tr>
+<tr><td><code>px</code></td><td>Fixed pixels</td><td>Borders, shadows</td></tr>
+<tr><td><code>%</code></td><td>Relative to the parent</td><td>Fluid widths</td></tr>
+<tr><td><code>em / rem</code></td><td>Relative to font size (rem: root)</td><td>Fonts, spacing</td></tr>
+<tr><td><code>vw / vh</code></td><td>1% of viewport width / height</td><td>Full-screen sections</td></tr>
+</table></div>
+<p>Colours can be names (<code>red</code>), hex (<code>#1a4bd0</code>), <code>rgb(26,75,208)</code> or <code>hsl(224,78%,46%)</code>.</p>
+</div>
+
+<div class="topic" id="u6-layout">
+<h3>Layout: display, position, Flexbox and Grid</h3>
+<p>Old pages used tables and floats for layout. Today you use <b>Flexbox</b> for one-dimensional layouts (a row or a column) and <b>Grid</b> for two-dimensional ones (rows and columns together).</p>
+<div class="code"><div class="code-bar"><span>css</span><button type="button">Copy</button></div><pre><code>.nav   { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+
+.cards { display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+         gap: 16px; }</code></pre></div>
+<p><code>position</code> values: <code>static</code> (default), <code>relative</code> (offset from its own place), <code>absolute</code> (relative to the nearest positioned parent), <code>fixed</code> (stuck to the screen), <code>sticky</code> (scrolls, then sticks).</p>
+</div>
+
+<div class="topic" id="u6-responsive">
+<h3>Responsive web design</h3>
+<p>A <mark>responsive website</mark> adapts to any screen size, from phone to desktop, using one HTML file. Three ingredients:</p>
+<ol>
+  <li><b>Viewport meta tag</b> so phones do not zoom out: <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></li>
+  <li><b>Fluid sizing</b>: percentages, <code>rem</code>, <code>max-width</code>, and images with <code>max-width:100%; height:auto</code>.</li>
+  <li><b>Media queries</b> that change the layout at breakpoints.</li>
+</ol>
+<div class="code"><div class="code-bar"><span>css</span><button type="button">Copy</button></div><pre><code>/* mobile-first: base styles are for phones */
+.layout { display: block; }
+
+@media (min-width: 768px) {          /* tablets and up */
+  .layout { display: grid; grid-template-columns: 220px 1fr; }
+}</code></pre></div>
+<div class="note tip"><span class="nt">Remember</span><p>"Mobile-first" means writing the phone layout first and using <code>min-width</code> queries to add features for larger screens. It is easier than shrinking a desktop design down.</p></div>
+</div>
+
+<div class="topic" id="u6-ux">
+<h3>User experience and usability</h3>
+<p><b>Usability</b> is how easily people can finish their task on a site. <b>User experience (UX)</b> is the whole feeling of using it. Principles worth stating in an answer:</p>
+<ul>
+  <li><b>Consistency:</b> the same navigation, colours and button styles on every page.</li>
+  <li><b>Clear navigation:</b> users should always know where they are and how to go back.</li>
+  <li><b>Feedback:</b> show loading, success and error messages.</li>
+  <li><b>Readability:</b> enough colour contrast, sensible font size (16px or more for body text), short lines.</li>
+  <li><b>Accessibility:</b> <code>alt</code> text, labels on form fields, keyboard-usable controls, semantic tags (<code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>).</li>
+  <li><b>Speed:</b> compressed images, little unused code.</li>
+</ul>
+</div>
+
+<div class="topic" id="u6-roadmap">
+<h3>Roadmap: from this syllabus to MERN full-stack</h3>
+<p><mark>MERN</mark> = <b>M</b>ongoDB (database), <b>E</b>xpress (server framework), <b>R</b>eact (front end), <b>N</b>ode.js (JavaScript runtime on the server). The whole stack is one language, JavaScript, which is why it suits someone who has just finished Units III and IV.</p>
+<div class="tw"><table class="t">
+<tr><th>Your syllabus unit</th><th>Where it shows up in MERN</th></tr>
+<tr><td>Unit I: HTTP, URL, web server</td><td>Express routes and REST APIs (GET, POST, PUT, DELETE, status codes)</td></tr>
+<tr><td>Unit II: HTML forms and tags</td><td>JSX and React controlled forms</td></tr>
+<tr><td>Unit III: client/server JS, security</td><td>Node.js, input validation, XSS, JWT authentication</td></tr>
+<tr><td>Unit IV: DOM, events, objects</td><td>React state and event handlers; the virtual DOM replaces manual DOM edits</td></tr>
+<tr><td>Unit V: XML</td><td>JSON, the format APIs use today; MongoDB stores JSON-like documents</td></tr>
+</table></div>
+
+<h4>Stage by stage (about 17 weeks at 1 to 2 hours a day)</h4>
+<ol class="flow vert">
+  <li><b>1. Foundations (weeks 1 to 3)</b>Finish this guide, add CSS Flexbox/Grid, learn Git and GitHub, use the terminal. <i>Build:</i> a responsive portfolio page.</li>
+  <li><b>2. Modern JavaScript (weeks 3 to 5)</b>let/const, arrow functions, destructuring, array methods (map, filter, reduce), modules, promises, async/await, fetch, JSON. <i>Build:</i> a weather or quotes app using a public API.</li>
+  <li><b>3. React (weeks 6 to 9)</b>Components, props, state, useEffect, lists and keys, forms, React Router, a build tool such as Vite. <i>Build:</i> a to-do or notes app with local state.</li>
+  <li><b>4. Node and Express (weeks 10 to 12)</b>npm, modules, Express routing, middleware, environment variables, error handling, REST design, JWT login. <i>Build:</i> a REST API with auth.</li>
+  <li><b>5. MongoDB and Mongoose (weeks 12 to 14)</b>Documents and collections, CRUD, schemas and validation, references and populate, indexes, MongoDB Atlas. <i>Build:</i> connect the API to a real database.</li>
+  <li><b>6. Integration and deployment (weeks 15 to 17)</b>Connect React to the API, CORS, protected routes, basic tests, deploy the front end and back end. <i>Build:</i> one complete full-stack app with login (a blog, expense tracker or job board).</li>
+</ol>
+<div class="note tip"><span class="nt">Remember</span><p>Build something at the end of every stage, even if it is small. A deployed project teaches more than another tutorial, and projects are what you show in interviews.</p></div>
+</div>
+
+<div class="topic" id="u6-ai">
+<h3>AI-based development: coding with AI tools</h3>
+<p><mark>AI-assisted development</mark> means using AI tools to plan, write, explain, test and fix code. The tools fall into three kinds, and most developers now mix them:</p>
+<div class="tw"><table class="t">
+<tr><th>Kind of tool</th><th>What it does</th><th>Examples</th></tr>
+<tr><td>Chat assistant</td><td>You paste code or an error and ask questions; it explains and suggests</td><td>Claude, ChatGPT, Gemini</td></tr>
+<tr><td>Editor assistant</td><td>Lives inside your code editor: autocomplete, inline edits, chat about your open files</td><td>GitHub Copilot, Cursor</td></tr>
+<tr><td>Agentic tool</td><td>You describe a goal; an agent reads your project, plans, edits several files, runs commands and tests, then reports back</td><td>Google Antigravity, Claude Code, Cursor agent mode</td></tr>
+</table></div>
+
+<h4>Google Antigravity in brief</h4>
+<p>Antigravity is Google's <b>agent-first IDE</b>, built on a VS Code-style editor. Its agents can work across the <b>editor, terminal and a built-in browser</b>. It has an <b>Editor view</b> for hands-on coding with an agent sidebar, and a <b>Manager view</b> for running several agents in parallel. Agents report with <b>Artifacts</b> (plans, screenshots, recordings) so you can check what they did. It is model-agnostic, so you can choose which AI model powers it. Tools like this change quickly, so check the official site for the current version, pricing and region availability.</p>
+
+<h4>A workflow that works for MERN projects</h4>
+<ol class="flow vert">
+  <li><b>1. Plan before code</b>Ask the AI for a plan: folder structure, API routes, MongoDB schemas, React components. Edit the plan yourself before it writes anything.</li>
+  <li><b>2. Build in small steps</b>One feature per request ("add a POST /api/notes route with validation"), not "build my whole app".</li>
+  <li><b>3. Review the diff</b>Read every change the agent made. Look for hard-coded secrets, missing validation, unsafe queries and code you do not understand.</li>
+  <li><b>4. Run and test</b>Run the app, click through it, and ask the AI to write tests. If you cannot see it work, it is not done.</li>
+  <li><b>5. Commit with Git</b>Commit after every working step so you can undo a bad AI change.</li>
+</ol>
+
+<h4>Writing a good prompt</h4>
+<div class="code"><div class="code-bar"><span>prompt template</span><button type="button">Copy</button></div><pre><code>Context:  MERN app. Express + Mongoose backend, React (Vite) frontend.
+Goal:     Add user login with JWT.
+Files:    server/routes/auth.js, server/models/User.js
+Rules:    Hash passwords with bcrypt. No secrets in code, use .env.
+          Keep the existing folder structure.
+Output:   Explain the plan first, then show the changes.</code></pre></div>
+
+<h4>Habits that make you better, not lazier</h4>
+<ul>
+  <li><b>Try first, then ask.</b> Spend 15 minutes on the problem, then ask for a hint before the full answer.</li>
+  <li><b>Ask "why".</b> "Why does this useEffect run twice?" teaches more than "fix this".</li>
+  <li><b>Give the AI context:</b> the exact error, the relevant code and your stack.</li>
+  <li><b>Never paste secrets</b> (API keys, passwords, database URLs) into an AI tool.</li>
+  <li><b>Verify packages and APIs.</b> AI can invent functions or libraries that do not exist.</li>
+  <li><b>Keep your fundamentals strong.</b> Exams and interviews test whether you understand the code, not whether an AI can write it.</li>
+</ul>
+<div class="note tip"><span class="nt">Remember</span><p>An AI tool is like a very fast junior developer: quick, confident, and sometimes wrong. You are the one who reviews, tests and takes responsibility for the code.</p></div>
+
+<h4>Practice ideas</h4>
+<ul>
+  <li>Build the same small app twice: once by hand, once with an AI agent. Compare the code and note what the AI got wrong.</li>
+  <li>Give an agent a bug in your project and ask it to find the cause <em>and explain it</em> before fixing.</li>
+  <li>Ask an AI to review your Express API for security problems, then check each point yourself.</li>
+</ul>
+</div>
+
+<div class="topic" id="u6-qa">
+<h3>Likely questions and checklist</h3>
+<details class="qa"><summary>What is CSS? Explain the types of CSS with an example.</summary><div class="ans"><p>CSS is a stylesheet language that controls the presentation of HTML. Inline CSS uses the <code>style</code> attribute on one element, internal CSS uses a <code>&lt;style&gt;</code> block in the page, and external CSS links a separate <code>.css</code> file with <code>&lt;link&gt;</code>. External is best because one file styles the whole site.</p></div></details>
+<details class="qa"><summary>Explain the CSS box model.</summary><div class="ans"><p>Every element is a rectangular box made of content, padding, border and margin, from inside to outside. Total width = content + padding + border + margin (unless <code>box-sizing: border-box</code> is used).</p></div></details>
+<details class="qa"><summary>What is responsive web design? How is it achieved?</summary><div class="ans"><p>Designing a site so one page adapts to all screen sizes. It uses the viewport meta tag, fluid units and flexible images, Flexbox/Grid, and media queries at breakpoints.</p></div></details>
+<details class="qa"><summary>Differentiate between Flexbox and Grid.</summary><div class="ans"><p>Flexbox lays items out along one axis (row or column) and suits components like navbars. Grid controls rows and columns at once and suits whole-page or card layouts.</p></div></details>
+<details class="qa"><summary>Explain type, class and id selectors with an example using an external stylesheet.</summary><div class="ans"><p>Link <code>style.css</code> with <code>&lt;link rel="stylesheet" href="style.css"&gt;</code>. A type selector (<code>p { }</code>) styles every element of that tag. A class selector (<code>.note { }</code>) styles all elements with <code>class="note"</code>. An id selector (<code>#title { }</code>) styles the single element with <code>id="title"</code>, which must be unique on the page.</p></div></details>
+<details class="qa"><summary>What are AI-assisted development tools? Name some.</summary><div class="ans"><p>Tools that help write and fix code: chat assistants (Claude, ChatGPT, Gemini), editor assistants (GitHub Copilot, Cursor) and agentic tools such as Google Antigravity and Claude Code, which can plan, edit several files, run commands and tests. Developers still review and test the output.</p></div></details>
+<details class="qa"><summary>What is the MERN stack?</summary><div class="ans"><p>A JavaScript full-stack: MongoDB (NoSQL database), Express.js (back-end framework), React (front-end library) and Node.js (server runtime). A React front end calls an Express/Node API, which reads and writes MongoDB.</p></div></details>
+
+<h4>Revision checklist</h4>
+<ul class="check">
+  <li><label><input type="checkbox" data-k="u6-1"><span>I can add CSS in three ways and write the main selectors</span></label></li>
+  <li><label><input type="checkbox" data-k="u6-2b"><span>I can write type, class and id selectors in an external style.css</span></label></li>
+  <li><label><input type="checkbox" data-k="u6-2"><span>I can explain the box model and specificity</span></label></li>
+  <li><label><input type="checkbox" data-k="u6-3"><span>I can build a layout with Flexbox and Grid</span></label></li>
+  <li><label><input type="checkbox" data-k="u6-4"><span>I can make a page responsive with a viewport tag and a media query</span></label></li>
+  <li><label><input type="checkbox" data-k="u6-5"><span>I can list usability and accessibility principles</span></label></li>
+  <li><label><input type="checkbox" data-k="u6-6"><span>I know the six MERN stages and what to build at each</span></label></li>
+  <li><label><input type="checkbox" data-k="u6-7"><span>I can use an AI coding tool with a plan, small steps, review and testing</span></label></li>
+</ul>
+</div>
+</section>
+
+<footer>
+  <p>End of guide. If a topic feels stuck, find it in the menu, run the example yourself, and change one thing at a time to see what happens. Tick the checklists as you go, and good luck with the exam.</p>
+</footer>
+
+</div></main>
+</div>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  root.classList.add('js');
+
+  /* theme */
+  try { var saved = localStorage.getItem('wt-theme'); if (saved) root.setAttribute('data-theme', saved); } catch(e){}
+  document.getElementById('themeBtn').addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    if (!cur) cur = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    var next = cur === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('wt-theme', next); } catch(e){}
+  });
+
+  /* open / close all answers */
+  var qaOpen = false;
+  document.getElementById('qaBtn').addEventListener('click', function(){
+    qaOpen = !qaOpen;
+    document.querySelectorAll('details.qa').forEach(function(d){ d.open = qaOpen; });
+    this.textContent = qaOpen ? 'Close all answers' : 'Open all answers';
+  });
+
+  /* mobile menu */
+  var side = document.getElementById('side'), menuBtn = document.getElementById('menuBtn');
+  menuBtn.addEventListener('click', function(){
+    var o = side.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', o);
+  });
+  side.addEventListener('click', function(e){
+    if (e.target.tagName === 'A' && side.classList.contains('open')) {
+      side.classList.remove('open'); menuBtn.setAttribute('aria-expanded', false);
+    }
+  });
+
+  /* copy buttons */
+  document.querySelectorAll('.code-bar button').forEach(function(b){
+    b.addEventListener('click', function(){
+      var code = b.closest('.code').querySelector('pre').innerText;
+      var done = function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy'; }, 1400); };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(code).then(done, function(){ b.textContent = 'Press Ctrl+C'; });
+      } else {
+        var ta = document.createElement('textarea'); ta.value = code; document.body.appendChild(ta);
+        ta.select(); try { document.execCommand('copy'); done(); } catch(e){}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+
+  /* checklist progress (saved in this browser) */
+  var boxes = document.querySelectorAll('.check input');
+  function updateProgress(){
+    for (var u = 1; u <= 6; u++) {
+      var all = document.querySelectorAll('.check input[data-k^="u' + u + '-"]');
+      var done = 0; all.forEach(function(i){ if (i.checked) done++; });
+      var el = document.querySelector('.prog[data-unit="' + u + '"]');
+      if (el) el.textContent = done + '/' + all.length;
+    }
+  }
+  boxes.forEach(function(b){
+    try { if (localStorage.getItem('wt-' + b.dataset.k) === '1') b.checked = true; } catch(e){}
+    b.addEventListener('change', function(){
+      try { localStorage.setItem('wt-' + b.dataset.k, b.checked ? '1' : '0'); } catch(e){}
+      updateProgress();
+    });
+  });
+  updateProgress();
+
+  /* scroll spy: highlight current unit and topic in the menu */
+  var topics = document.querySelectorAll('.topic[id]');
+  var links = {}, unitItems = document.querySelectorAll('.units > li');
+  document.querySelectorAll('.units ul a').forEach(function(a){ links[a.getAttribute('href').slice(1)] = a; });
+  function setActive(id){
+    Object.keys(links).forEach(function(k){ links[k].classList.toggle('on', k === id); });
+    var unit = id ? id.split('-')[0].replace('u','') : null;
+    unitItems.forEach(function(li, i){ li.classList.toggle('active', unit ? (i + 1) === +unit : false); });
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if (en.isIntersecting) setActive(en.target.id); });
+    }, { rootMargin: '-15% 0px -70% 0px' });
+    topics.forEach(function(t){ io.observe(t); });
+  }
+  if (!location.hash) setActive(null);
+
+  /* ---------- demos ---------- */
+
+  /* image map demo */
+  var mapImg = document.getElementById('demoMapImg');
+  if (mapImg) {
+    var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='300' height='180'>" +
+      "<rect width='300' height='180' fill='#eef2f8'/>" +
+      "<rect x='10' y='10' width='100' height='80' fill='#1a4bd0'/>" +
+      "<circle cx='200' cy='60' r='45' fill='#0d7a6d'/>" +
+      "<polygon points='40,170 110,100 180,170' fill='#b8245f'/>" +
+      "<text x='60' y='55' fill='white' font-size='14' text-anchor='middle' font-family='sans-serif'>rect</text>" +
+      "<text x='200' y='65' fill='white' font-size='14' text-anchor='middle' font-family='sans-serif'>circle</text>" +
+      "<text x='110' y='155' fill='white' font-size='14' text-anchor='middle' font-family='sans-serif'>poly</text></svg>";
+    mapImg.src = 'data:image/svg+xml,' + encodeURIComponent(svg);
+    var mapOut = document.getElementById('demoMapOut');
+    document.querySelectorAll('#u2-images map area').forEach(function(a){
+      a.addEventListener('click', function(e){ e.preventDefault(); mapOut.textContent = a.dataset.say; });
+    });
+  }
+
+  /* increment demo */
+  var x = 5, incOut = document.getElementById('incOut');
+  if (incOut) {
+    document.getElementById('incPost').addEventListener('click', function(){
+      var before = x, y = x++;
+      incOut.textContent = 'y = x++   ->   y = ' + y + ', x = ' + x + '   (used ' + before + ' first, then added 1)';
+    });
+    document.getElementById('incPre').addEventListener('click', function(){
+      var before = x, y = ++x;
+      incOut.textContent = 'y = ++x   ->   y = ' + y + ', x = ' + x + '   (added 1 to ' + before + ' first, then used it)';
+    });
+    document.getElementById('incReset').addEventListener('click', function(){ x = 5; incOut.textContent = 'x = 5'; });
+  }
+
+  /* regex tester */
+  var reP = document.getElementById('reP');
+  if (reP) {
+    var reF = document.getElementById('reF'), reT = document.getElementById('reT'), reOut = document.getElementById('reOut');
+    function runRe(){
+      try {
+        var re = new RegExp(reP.value, reF.value);
+        var ok = re.test(reT.value);
+        var all = reT.value.match(new RegExp(reP.value, reF.value.indexOf('g') < 0 ? reF.value + 'g' : reF.value));
+        reOut.textContent = (ok ? 'test() = true: the text matches' : 'test() = false: no match') +
+          (all ? '\nMatches found: ' + JSON.stringify(all) : '');
+      } catch (err) { reOut.textContent = 'Not a valid pattern: ' + err.message; }
+    }
+    [reP, reF, reT].forEach(function(i){ i.addEventListener('input', runRe); });
+    runRe();
+  }
+
+  /* events demo */
+  var evBox = document.getElementById('evBox');
+  if (evBox) {
+    var evOut = document.getElementById('evOut'), evInput = document.getElementById('evInput'), log = [];
+    function say(t){ log.unshift(t); log = log.slice(0, 6); evOut.textContent = log.join('\n'); }
+    ['mouseover','mouseout','click','dblclick'].forEach(function(n){ evBox.addEventListener(n, function(){ say('box: ' + n); }); });
+    ['focus','blur','change'].forEach(function(n){ evInput.addEventListener(n, function(){ say('input: ' + n); }); });
+    evInput.addEventListener('keydown', function(e){ say('input: keydown "' + e.key + '"'); });
+  }
+
+  /* XML well-formed checker */
+  var xmlBtn = document.getElementById('xmlCheck');
+  if (xmlBtn) {
+    xmlBtn.addEventListener('click', function(){
+      var out = document.getElementById('xmlOut');
+      var doc = new DOMParser().parseFromString(document.getElementById('xmlIn').value, 'application/xml');
+      var err = doc.getElementsByTagName('parsererror')[0];
+      if (err) {
+        out.textContent = 'Not well-formed.\n' + err.textContent.trim().split('\n').slice(0, 3).join('\n');
+      } else {
+        out.textContent = 'Well-formed. Root element: <' + doc.documentElement.nodeName + '>, ' +
+          doc.getElementsByTagName('*').length + ' elements in total.';
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>
